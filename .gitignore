@@ -1,0 +1,8 @@
+*.json
+*.csv
+*.xml
+*.xlsx
+*.xls
+*.pdf
+OFAC-NONSDN/.es.py.swp
+OFAC-NONSDN/local.py.save
