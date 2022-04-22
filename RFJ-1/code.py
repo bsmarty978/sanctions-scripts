@@ -13,6 +13,7 @@ from copy import deepcopy
 class Data():
     try:
         out_list = []
+        # input_list = []
         total_profile_available = 0
 
         #NOTE: Filename according to the date :
@@ -21,6 +22,7 @@ class Data():
         last_updated_string = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
         dag_name = "rfj-terrorist"
+        root = "/home/ubuntu/sanctions-scripts/RFJ-1/"
 
         # input_filename  = f'{dag_name}-inout-{today_date.day}-{today_date.month}-{today_date.year}.json'
         output_filename = f'{dag_name}-output-{today_date.day}-{today_date.month}-{today_date.year}.json'
@@ -29,7 +31,6 @@ class Data():
         old_output_filename = f'{dag_name}-output-{yesterday.day}-{yesterday.month}-{yesterday.year}.json'
         lp_name = f'{dag_name}-logfile.csv'
         #NOTE: Paths of directories
-        root = "/home/ubuntu/sanctions-scripts/RFJ-1/"
         # root = ""
         # ip_path = f"{root}inputfiles"
         op_path = f"{root}outputfiles"
