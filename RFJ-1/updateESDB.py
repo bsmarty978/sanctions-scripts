@@ -3,7 +3,7 @@ from elasticsearch import Elasticsearch
 import json
 from datetime import datetime as dt
 from datetime import timedelta,date
-
+import traceback
 
 today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
@@ -53,6 +53,7 @@ def write_data_to_esdb(es,identity,article):
         print(f"Data Inserting Error For UID : {identity}")
         failed_uids.append(identity)
         print(ex)
+        print(f'-->{traceback.print_exc()}')
         # res = es.update(index="secnc", document=article)
 
 def check_data_of_esdb(es,identity,article):

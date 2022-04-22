@@ -233,7 +233,7 @@ class Data():
                             # item['Family_Tree'] = {}
                             # item['Family_Tree']['Associated'] = Associated
                             item['sanction_Details'] = {}
-                            item['sanction_Details']['Associated'] = Associated
+                            # item['sanction_Details']['Associated'] = Associated
                             item['individual_details'] = {}
                             item['individual_details']['date_of_birth'] = dob.split(";")
                             item['individual_details']['Gender'] = gender
@@ -246,16 +246,16 @@ class Data():
                             add['complete_address'] = ""
                             item['address'].append(add)
                             item['documents'] = {}
-                            try:
-                                body = [I.strip() for I in Identifications]
-                                for H in body:
-                                    if H != "":
-                                        data = H.strip().replace("\n","").split(":")
-                                        item['documents'][data[0]] = data[1]
-                                    else:
-                                        continue
-                            except:
-                                pass
+                            # try:
+                            #     body = [I.strip() for I in Identifications]
+                            #     for H in body:
+                            #         if H != "":
+                            #             data = H.strip().replace("\n","").split(":")
+                            #             item['documents'][data[0]] = data[1]
+                            #         else:
+                            #             continue
+                            # except:
+                            #     pass
                             item['comment'] = comment
                             item['sanction_list'] = {}
                             item['sanction_list']['sl_authority'] = "Rewards for Justice, USA"
@@ -294,6 +294,242 @@ class Data():
                             item['list_id'] = "USA_T30098"
                             self.out_list.append(item)                    
             p+=1
+
+        print(f'Terrorims : {len(self.out_list)}')
+        #NOTE: ELECTRONIC INTERFEARANCE : 
+        ep=1
+        while True:
+            print(ep)
+            new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=election-interference:2030&pagenum={ep}"
+            payload = {}
+            headers = {
+                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+            }
+            res = requests.get(new_url, headers=headers, data=payload)
+            ress = HtmlResponse(url="example.com",body=res.content)
+            d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
+            if d==[]:
+                break
+            else:
+                for r in d:
+                    rlink = r.xpath('.//@data-url').get()
+                    rcat  = r.xpath('.//section[1]//h2/text()').get()
+                    # if rcat in ['Terrorism Financing','Organizations','Terrorism - Individuals']:
+                    data = requests.get(rlink,headers=headers, data=payload)
+                    resp = HtmlResponse(url="example.com",body=data.content)
+                    name = resp.xpath('//*[@class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-7a45ba0"]//h2[@class="elementor-heading-title elementor-size-default"]//text()').extract_first(default="").strip()
+
+                    dob = ""
+                    placeofbirth = ""
+                    country = ""
+                    alias_name = ""
+                    Identifications = ""
+                    Associated = ""
+                    gender = ""
+                    try:
+                        dob = ''.join(resp.xpath('//*[contains(text(),"Date of Birth:")]/../../..//*[@class="elementor-element elementor-element-9a896ea dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        dob = ""
+                    try:
+                        placeofbirth = ''.join(resp.xpath('//*[contains(text(),"Place of Birth:")]/../../..//*[@class="elementor-element elementor-element-89fe776 dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        placeofbirth = ""
+                    try:
+                        country = ''.join(resp.xpath('//*[contains(text(),"Citizenship:")]/../../..//*[@class="elementor-element elementor-element-fcb86f5 dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()|//*[contains(text(),"Nationality:")]/../../..//*[@class="elementor-element elementor-element-d94db6a dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        country = ""
+                    try:
+                        alias_name = ''.join(resp.xpath('//*[contains(text(),"Aliases/Alternative Name Spellings:")]/../../..//*[@class="elementor-element elementor-element-50c20df dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        alias_name = ""
+                    try:
+                        Identifications = resp.xpath('//*[contains(text(),"Miscellaneous Identifications:")]/../../..//*[@class="elementor-element elementor-element-c8cff6e dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()|//*[contains(text(),"National Identification Number(s) and Country:")]/../../..//*[@class="elementor-element elementor-element-4f362cf dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()
+                    except:
+                        Identifications = ""
+                    try:
+                        Associated = resp.xpath('//*[contains(text(),"Associated Organization(s):")]/../../..//a/text()').extract_first(default="").strip()
+                    except:
+                        Associated = ""
+                    try:
+                        gender = ''.join(resp.xpath('//*[contains(text(),"Sex:")]/../../..//*[@class="elementor-element elementor-element-11fd5fa elementor-widget elementor-widget-jet-listing-dynamic-terms"]//text()').extract()).strip()
+                    except:
+                        gender = ""
+            
+                    try:
+                        comment = ''.join(resp.xpath('//*[@class="elementor-element elementor-element-52b1d20 elementor-widget elementor-widget-theme-post-content"]//p//text()').extract()).strip()
+                    except:
+                        comment = ""
+
+                    item = {}
+                    item['uid'] = self.get_hash(name)
+                    item['name'] = name
+                    item['alias_name'] = []
+                    if len(alias_name.split(";"))>1:
+                        item['alias_name'] = alias_name.split(";")
+                    else:
+                        item['alias_name'] = alias_name.split(",")
+                    item['country'] = []
+                    item['list_type'] = "Individual"
+                    item['last_updated'] = self.last_updated_string
+                    # item['Family_Tree'] = {}
+                    # item['Family_Tree']['Associated'] = Associated
+                    item['sanction_Details'] = {}
+                    # item['sanction_Details']['Associated'] = Associated
+                    item['individual_details'] = {}
+                    item['individual_details']['date_of_birth'] = dob.split(";")
+                    item['individual_details']['Gender'] = gender
+                    item['individual_details']['Place_of_Birth'] = placeofbirth
+                    item['nns_status'] = False
+                    item['address'] = []
+                    add = {}
+                    # add['country'] = country.replace("\t","").replace("\n","").strip()
+                    add['country'] = country.split("\t")[0]
+                    add['complete_address'] = ""
+                    item['address'].append(add)
+                    item['documents'] = {}
+                    # try:
+                    #     body = [I.strip() for I in Identifications]
+                    #     for H in body:
+                    #         if H != "":
+                    #             data = H.strip().replace("\n","").split(":")
+                    #             item['documents'][data[0]] = data[1]
+                    #         else:
+                    #             continue
+                    # except:
+                    #     pass
+                    item['comment'] = comment
+                    item['sanction_list'] = {}
+                    item['sanction_list']['sl_authority'] = "Rewards for Justice, USA"
+                    item['sanction_list']['sl_url'] = "https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=crime-category:1072"
+                    item['sanction_list']['sl_host_country'] = "USA"
+                    item['sanction_list']['sl_type'] = "Sanctions"
+                    item['sanction_list']['watch_list'] = "North America Watchlists"
+                    item['sanction_list']['sl_source'] = "Rewards for Justice-Wanted for Terrorism List, Russia"
+                    item['sanction_list']['sl_description'] = "List of most wanted individuals and entities by Rewards for Justice, USA."
+                    item['list_id'] = "USA_T30098"
+                    self.out_list.append(item)                
+            ep+=1
+        print(f'Electronic Interfearance : {len(self.out_list)}')
+
+        #NOTE: CYBER : 
+        cp=1
+        while True:
+            print(cp)
+            new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=cyber:857&pagenum={cp}"
+            payload = {}
+            headers = {
+                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+            }
+            res = requests.get(new_url, headers=headers, data=payload)
+            ress = HtmlResponse(url="example.com",body=res.content)
+            d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
+            if d==[]:
+                break
+            else:
+                for r in d:
+                    rlink = r.xpath('.//@data-url').get()
+                    rcat  = r.xpath('.//section[1]//h2/text()').get()
+                    # if rcat in ['Terrorism Financing','Organizations','Terrorism - Individuals']:
+                    data = requests.get(rlink,headers=headers, data=payload)
+                    resp = HtmlResponse(url="example.com",body=data.content)
+                    name = resp.xpath('//*[@class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-7a45ba0"]//h2[@class="elementor-heading-title elementor-size-default"]//text()').extract_first(default="").strip()
+
+                    dob = ""
+                    placeofbirth = ""
+                    country = ""
+                    alias_name = ""
+                    Identifications = ""
+                    Associated = ""
+                    gender = ""
+                    try:
+                        dob = ''.join(resp.xpath('//*[contains(text(),"Date of Birth:")]/../../..//*[@class="elementor-element elementor-element-9a896ea dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        dob = ""
+                    try:
+                        placeofbirth = ''.join(resp.xpath('//*[contains(text(),"Place of Birth:")]/../../..//*[@class="elementor-element elementor-element-89fe776 dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        placeofbirth = ""
+                    try:
+                        country = ''.join(resp.xpath('//*[contains(text(),"Citizenship:")]/../../..//*[@class="elementor-element elementor-element-fcb86f5 dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()|//*[contains(text(),"Nationality:")]/../../..//*[@class="elementor-element elementor-element-d94db6a dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        country = ""
+                    try:
+                        alias_name = ''.join(resp.xpath('//*[contains(text(),"Aliases/Alternative Name Spellings:")]/../../..//*[@class="elementor-element elementor-element-50c20df dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()).strip()
+                    except:
+                        alias_name = ""
+                    try:
+                        Identifications = resp.xpath('//*[contains(text(),"Miscellaneous Identifications:")]/../../..//*[@class="elementor-element elementor-element-c8cff6e dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()|//*[contains(text(),"National Identification Number(s) and Country:")]/../../..//*[@class="elementor-element elementor-element-4f362cf dc-has-condition dc-condition-empty elementor-widget elementor-widget-text-editor"]//text()').extract()
+                    except:
+                        Identifications = ""
+                    try:
+                        Associated = resp.xpath('//*[contains(text(),"Associated Organization(s):")]/../../..//a/text()').extract_first(default="").strip()
+                    except:
+                        Associated = ""
+                    try:
+                        gender = ''.join(resp.xpath('//*[contains(text(),"Sex:")]/../../..//*[@class="elementor-element elementor-element-11fd5fa elementor-widget elementor-widget-jet-listing-dynamic-terms"]//text()').extract()).strip()
+                    except:
+                        gender = ""
+            
+                    try:
+                        comment = ''.join(resp.xpath('//*[@class="elementor-element elementor-element-52b1d20 elementor-widget elementor-widget-theme-post-content"]//p//text()').extract()).strip()
+                    except:
+                        comment = ""
+
+                    item = {}
+                    item['uid'] = self.get_hash(name)
+                    item['name'] = name
+                    item['alias_name'] = []
+                    if len(alias_name.split(";"))>1:
+                        item['alias_name'] = alias_name.split(";")
+                    else:
+                        item['alias_name'] = alias_name.split(",")
+                    item['country'] = []
+                    item['list_type'] = "Individual"
+                    item['last_updated'] = self.last_updated_string
+                    # item['Family_Tree'] = {}
+                    # item['Family_Tree']['Associated'] = Associated
+                    item['sanction_Details'] = {}
+                    # item['sanction_Details']['Associated'] = Associated
+                    item['individual_details'] = {}
+                    item['individual_details']['date_of_birth'] = dob.split(";")
+                    item['individual_details']['Gender'] = gender
+                    item['individual_details']['Place_of_Birth'] = placeofbirth
+                    item['nns_status'] = False
+                    item['address'] = []
+                    add = {}
+                    # add['country'] = country.replace("\t","").replace("\n","").strip()
+                    add['country'] = country.split("\t")[0]
+                    add['complete_address'] = ""
+                    item['address'].append(add)
+                    item['documents'] = {}
+                    # try:
+                    #     body = [I.strip() for I in Identifications]
+                    #     for H in body:
+                    #         if H != "":
+                    #             data = H.strip().replace("\n","").split(":")
+                    #             item['documents'][data[0]] = data[1]
+                    #         else:
+                    #             continue
+                    # except:
+                    #     pass
+                    item['comment'] = comment
+                    item['sanction_list'] = {}
+                    item['sanction_list']['sl_authority'] = "Rewards for Justice, USA"
+                    item['sanction_list']['sl_url'] = "https://rewardsforjustice.net/index/"
+                    item['sanction_list']['sl_host_country'] = "USA"
+                    item['sanction_list']['sl_type'] = "Sanctions"
+                    item['sanction_list']['watch_list'] = "North America Watchlists"
+                    item['sanction_list']['sl_source'] = "Rewards for Justice-Wanted for Terrorism List, Russia"
+                    item['sanction_list']['sl_description'] = "List of most wanted individuals and entities by Rewards for Justice, USA."
+                    item['list_id'] = "USA_T30098"
+                    self.out_list.append(item)                
+            cp+=1
         self.total_profile_available = len(self.out_list)
         print(f"Total profile available : {self.total_profile_available}")
         try:
