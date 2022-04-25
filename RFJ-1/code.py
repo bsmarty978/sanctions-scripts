@@ -166,6 +166,7 @@ class Data():
             res = requests.get(new_url, headers=headers, data=payload)
             ress = HtmlResponse(url="example.com",body=res.content)
             d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
+            print(d)
             if d==[]:
                 break
             else:
