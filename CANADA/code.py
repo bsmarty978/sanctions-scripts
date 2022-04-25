@@ -174,7 +174,7 @@ def fileprocessor():
         pass_obj["name"] = name
         pass_obj["list_type"] = list_type
         pass_obj["country"] = country
-        pass_obj["Aliases"] = Aliases
+        pass_obj["alias_name"] = Aliases
         pass_obj["last_updated"] = last_updated_string
         pass_obj["address"] = [{"complete_address":"","country":""}]
         pass_obj["documents"] = {}
