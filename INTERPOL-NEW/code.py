@@ -2,6 +2,44 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import requests
 import json
+import time
+from datetime import datetime,date,timedelta
+import hashlib
+import os
+from os.path import exists
+import boto3
+from copy import deepcopy
+
+#NOTE: Object for output json file
+out_list = []
+total_profile_available = 0
+
+#NOTE: Filename according to the date :
+today_date  = date.today()
+yesterday = today_date - timedelta(days = 1)
+last_updated_string = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+dag_name = "interpol"
+
+# input_filename  = f'{dag_name}-inout-{today_date.day}-{today_date.month}-{today_date.year}.json'
+output_filename = f'{dag_name}-output-{today_date.day}-{today_date.month}-{today_date.year}.json'
+diffrance_filename = f'{dag_name}-diffrance-{today_date.day}-{today_date.month}-{today_date.year}.json'
+removed_filename = f'{dag_name}-removed-{today_date.day}-{today_date.month}-{today_date.year}.json'
+old_output_filename = f'{dag_name}-output-{yesterday.day}-{yesterday.month}-{yesterday.year}.json'
+lp_name = f'{dag_name}-logfile.csv'
+#NOTE: Paths of directories
+root = "/home/ubuntu/sanctions-scripts/INTERPOL-NEW/"
+# root = ""
+# ip_path = f"{root}inputfiles"
+op_path = f"{root}outputfiles"
+dp_path = f"{root}diffrancefiles"
+rm_path = f"{root}removedfiles"
+lp_path = f"{root}{dag_name}-logfile.csv"
+
+
+def get_hash(n):
+    return hashlib.sha256(((n+"Prohibited Investment List").lower()).encode()).hexdigest()    
+
 
 URL = "https://www.interpol.int/How-we-work/Notices/View-Red-Notices"
 
@@ -53,14 +91,14 @@ def datascraper(passobj):
     return ret_list
 
 
-def datascraper1(passobj):
+def datascraper(passobj):
     ret_list = []
     for k in passobj["_embedded"]["notices"]:
         eid = k["entity_id"]
         # selflink = f"https://ws-public.interpol.int/notices/v1/red/{eid}"
         selflink = k["_links"]["self"]["href"]
         # print(selflink)
-
+        time.sleep(0.2)
         sr = requests.get(selflink)
         sdata = json.loads(sr.text)
 
