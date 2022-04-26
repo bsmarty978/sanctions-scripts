@@ -155,18 +155,28 @@ class Data():
         p=1
         while True:
             print(p)
-            new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=crime-category:1073%2C1072%2C1074&pagenum={p}"
-            payload = {}
+            # new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=crime-category:1073%2C1072%2C1074&pagenum={p}"
+            url = f"https://rewardsforjustice.net/index/?nocache=1650868733&jsf=jet-engine:rewards-grid&tax=crime-category:1073%2C1072%2C1074&pagenum={p}&nocache=1650868733"
+
+            payload = "action=jet_engine_ajax&handler=get_listing&page_settings%5Bpost_id%5D=22076&page_settings%5Bqueried_id%5D=22076%7CWP_Post&page_settings%5Belement_id%5D=ddd7ae9&page_settings%5Bpage%5D=1&listing_type=elementor&isEditMode=false&addedPostCSS%5B%5D=22078"
             headers = {
-                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'authority': 'rewardsforjustice.net',
+                'method': 'POST',
+                'accept': 'application/json, text/javascript, */*; q=0.01',
                 'accept-encoding': 'gzip, deflate, br',
                 'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
+                'x-requested-with': 'XMLHttpRequest'
             }
-            res = requests.get(new_url, headers=headers, data=payload)
-            ress = HtmlResponse(url="example.com",body=res.content)
+            
+            res = requests.post(url, headers=headers, data=payload)
+            body = json.loads(res.text)
+            data = body['data']['html']
+            ress = HtmlResponse(url="example.com",body=data,encoding='utf-8')
+            # d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]//@data-url').extract()
             d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
-            print(d)
+            # print(d)
             if d==[]:
                 break
             else:
@@ -221,6 +231,7 @@ class Data():
                             comment = ""
 
                         item = {}
+                        # print(name)
                         if dob or placeofbirth or Identifications:
                             item['uid'] = self.get_hash(name)
                             item['name'] = name
@@ -302,16 +313,25 @@ class Data():
         ep=1
         while True:
             print(ep)
-            new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=election-interference:2030&pagenum={ep}"
-            payload = {}
+            # new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=election-interference:2030&pagenum={ep}"
+            url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=election-interference:2030&pagenum={ep}&nocache=1650868733"
+            payload = "action=jet_engine_ajax&handler=get_listing&page_settings%5Bpost_id%5D=22076&page_settings%5Bqueried_id%5D=22076%7CWP_Post&page_settings%5Belement_id%5D=ddd7ae9&page_settings%5Bpage%5D=1&listing_type=elementor&isEditMode=false&addedPostCSS%5B%5D=22078"
             headers = {
-                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'authority': 'rewardsforjustice.net',
+                'method': 'POST',
+                'accept': 'application/json, text/javascript, */*; q=0.01',
                 'accept-encoding': 'gzip, deflate, br',
                 'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
+                'x-requested-with': 'XMLHttpRequest'
             }
-            res = requests.get(new_url, headers=headers, data=payload)
-            ress = HtmlResponse(url="example.com",body=res.content)
+            
+            res = requests.post(url, headers=headers, data=payload)
+            body = json.loads(res.text)
+            data = body['data']['html']
+            ress = HtmlResponse(url="example.com",body=data,encoding='utf-8')
+            # d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]//@data-url').extract()
             d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
             if d==[]:
                 break
@@ -420,16 +440,25 @@ class Data():
         cp=1
         while True:
             print(cp)
-            new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=cyber:857&pagenum={cp}"
-            payload = {}
+            # new_url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=cyber:857&pagenum={cp}"
+            url = f"https://rewardsforjustice.net/index/?jsf=jet-engine:rewards-grid&tax=cyber:857&pagenum={cp}&nocache=1650868733"
+            payload = "action=jet_engine_ajax&handler=get_listing&page_settings%5Bpost_id%5D=22076&page_settings%5Bqueried_id%5D=22076%7CWP_Post&page_settings%5Belement_id%5D=ddd7ae9&page_settings%5Bpage%5D=1&listing_type=elementor&isEditMode=false&addedPostCSS%5B%5D=22078"
             headers = {
-                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'authority': 'rewardsforjustice.net',
+                'method': 'POST',
+                'accept': 'application/json, text/javascript, */*; q=0.01',
                 'accept-encoding': 'gzip, deflate, br',
                 'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
+                'x-requested-with': 'XMLHttpRequest'
             }
-            res = requests.get(new_url, headers=headers, data=payload)
-            ress = HtmlResponse(url="example.com",body=res.content)
+            
+            res = requests.post(url, headers=headers, data=payload)
+            body = json.loads(res.text)
+            data = body['data']['html']
+            ress = HtmlResponse(url="example.com",body=data,encoding='utf-8')
+            # d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]//@data-url').extract()
             d = ress.xpath('//*[@class="jet-engine-listing-overlay-wrap"]')
             if d==[]:
                 break
