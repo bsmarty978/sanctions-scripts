@@ -47,44 +47,48 @@ class mcagov():
                     f.close()
                     try:
                         tb = camelot.read_pdf(f"mca.gov.in_{counter}.pdf", pages="all", flavor="stream")
-                        df = tb[0].df
-                        df = pd.DataFrame(df)
-                        for row in df.iterrows():
-                            try:
-                                cin = row[1][0]
-                            except:
-                                cin = ""
+                        print("Total Tables:"+len(tb))
+                        for tab in tb:
+                            df = tab.df
+                            print(f"-->{tab}")
+                            # df = tb[0].df
+                            # df = pd.DataFrame(df)
+                            for row in df.iterrows():
+                                try:
+                                    cin = row[1][0]
+                                except:
+                                    cin = ""
 
-                            try:
-                                name = row[1][1]
-                            except:
-                                name = ""
-                            if cin == "" and name == "Company Name":
-                                continue
-                            else:
-                                item = {}
-                                item['uid'] = hashlib.sha256(((name).lower()).encode()).hexdigest()
-                                item['name'] = name.strip(".")
-                                item['alias_name'] = []
-                                item['country'] = []
-                                item['list_type'] = "Entity"
-                                item['last_updated'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-                                item['entity_details'] = {}
-                                item['entity_details']['CIN'] = cin
-                                item['nns_status'] = False
-                                item['address'] = []
-                                item['documents'] = {}
-                                item['comment'] = {}
-                                item['sanction_list'] = {}
-                                item['sanction_list']['sl_authority'] = "Ministry of Corporate Affairs, India"
-                                item['sanction_list']['sl_url'] = "https://www.mca.gov.in/MinistryV2/defaultercompanieslist.html"
-                                item['sanction_list']['sl_host_country'] = "India"
-                                item['sanction_list']['sl_type'] = "Sanctions"
-                                item['sanction_list']['watch_list'] = "India Watchlists"
-                                item['sanction_list']['sl_source'] = "Ministry of Corporate Affairs Defaulter Companies List, India"
-                                item['sanction_list']['sl_description'] = "List of defaulter companies by Ministry of Corporate Affairs, India."
-                                item['list_id'] = "IND_E20001"
-                                self.final_list.append(item)
+                                try:
+                                    name = row[1][1]
+                                except:
+                                    name = ""
+                                if cin == "" and name == "Company Name":
+                                    continue
+                                else:
+                                    item = {}
+                                    item['uid'] = hashlib.sha256(((name).lower()).encode()).hexdigest()
+                                    item['name'] = name.strip(".")
+                                    item['alias_name'] = []
+                                    item['country'] = []
+                                    item['list_type'] = "Entity"
+                                    item['last_updated'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+                                    item['entity_details'] = {}
+                                    item['entity_details']['CIN'] = cin
+                                    item['nns_status'] = False
+                                    item['address'] = []
+                                    item['documents'] = {}
+                                    item['comment'] = {}
+                                    item['sanction_list'] = {}
+                                    item['sanction_list']['sl_authority'] = "Ministry of Corporate Affairs, India"
+                                    item['sanction_list']['sl_url'] = "https://www.mca.gov.in/MinistryV2/defaultercompanieslist.html"
+                                    item['sanction_list']['sl_host_country'] = "India"
+                                    item['sanction_list']['sl_type'] = "Sanctions"
+                                    item['sanction_list']['watch_list'] = "India Watchlists"
+                                    item['sanction_list']['sl_source'] = "Ministry of Corporate Affairs Defaulter Companies List, India"
+                                    item['sanction_list']['sl_description'] = "List of defaulter companies by Ministry of Corporate Affairs, India."
+                                    item['list_id'] = "IND_E20001"
+                                    self.final_list.append(item)
                     except Exception as e:
                         print(e)
                 try:
