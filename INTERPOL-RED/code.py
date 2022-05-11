@@ -28,7 +28,7 @@ removed_filename = f'{dag_name}-removed-{today_date.day}-{today_date.month}-{tod
 old_output_filename = f'{dag_name}-output-{yesterday.day}-{yesterday.month}-{yesterday.year}.json'
 lp_name = f'{dag_name}-logfile.csv'
 #NOTE: Paths of directories
-root = "/home/ubuntu/sanctions-scripts/INTERPOL-NEW/"
+root = "/home/ubuntu/sanctions-scripts/INTERPOL-RED/"
 # root = ""
 # ip_path = f"{root}inputfiles"
 op_path = f"{root}outputfiles"
@@ -98,7 +98,7 @@ def datascraper(passobj):
         # selflink = f"https://ws-public.interpol.int/notices/v1/red/{eid}"
         selflink = k["_links"]["self"]["href"]
         # print(selflink)
-        time.sleep(0.2)
+        time.sleep(0.5)
         sr = requests.get(selflink)
         sdata = json.loads(sr.text)
 
@@ -144,6 +144,34 @@ def datascraper(passobj):
             "dob" : dob,
         })
 
+        # ret_list.append(
+        #     {
+        #     'uid' :get_hash(eid+name),
+        #     'name':name,
+        #     'alias_name':alias, 
+        #     'country': contry,
+        #     'list_type':"Individual",
+        #     'last_updated':last_updated_string,
+        #     'list_id':"USA_E20294",    
+        #     "individual_details":{
+        #         "date_of_birth" : dob,
+        #         "place_of_birth":pob,
+        #         "gender" : gender
+        #     },
+        #     'sanction_details':{},    
+        #     'nns_status':"False",
+        #     'address':[],
+        #     'comment':"",   
+        #     'sanction_list':{
+        #         "sl_authority":"Department of Justice, USA",
+        #         "sl_url":"https://www.justice.gov/eoir/list-of-currently-disciplined-practitioners",
+        #         "watch_list":"North America Watchlists",
+        #         "sl_host_country":"USA",
+        #         "sl_type": "Sanctions",
+        #         "sl_source":"Department of Justice Executive Office For Immigration Review ‐ Disciplined Practitioners List, USA",
+        #         "sl_description":"List of the Immigration Review's Attorney practitioners were expelled from practice by the Department of Justice, USA",
+        #             }
+        #         })
     return ret_list
 
 
