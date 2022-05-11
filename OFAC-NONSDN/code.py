@@ -27,7 +27,7 @@ base_individual_obj = {
         "comment": "",
         "sanction_list": {
             "sl_authority": "Office of Foreign Assets Control",
-            "sl_url": "https://home.treasury.gov/policy-issues/financial-sanctions/consolidated-sanctions-list-non-sdn-lists",
+            "sl_url": "https://home.treasury.gov/policy-issues/office-of-foreign-assets-control-sanctions-programs-and-information",
             "sl_host_country": "United States of America",
             "sl_type": "NON-SDN(Sanctions)",
             "sl_source": "Office Of Foreign Assets Control Sanction List(Covers 73 Lists)",
@@ -293,13 +293,13 @@ def fileprocessor():
         copy_obj["list_id"] = "USA_S10001" 
         copy_obj["sanction_list"] = {
             "sl_authority": "Office of Foreign Assets Control",
-            "sl_url": "https://home.treasury.gov/policy-issues/financial-sanctions/consolidated-sanctions-list-non-sdn-lists",
+            "sl_url": "https://home.treasury.gov/policy-issues/office-of-foreign-assets-control-sanctions-programs-and-information",
             # "sl_url": "https://home.treasury.gov/policy-issues/financial-sanctions/specially-designated-nationals-list-data-formats-data-schemas", #for SDN list
             "watch_list" : "Global Watchlists",
             "sl_host_country": "United States of America",
             "sl_type": "NON-SDN(Sanctions)",
             # "sl_type": "Specially Designated Nationals", # For SDN lists
-            "sl_source": "Office Of Foreign Assets Control Sanction List(Covers 73 Lists)",
+            "sl_source": "Office Of Foreign Assets Control Consolidated Sanctions List, USA (Covers 73 List)",
             "sl_description": "The Office of Foreign Assets Control(OFAC) is a financial intelligence and enforcement agency of the U.S. Treasury Department."
         }
 
