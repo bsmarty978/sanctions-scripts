@@ -1,9 +1,7 @@
 import requests
 from scrapy.http import HtmlResponse
 import camelot
-import pandas as pd
 from datetime import datetime,date,timedelta
-import os
 import json
 import hashlib
 import os
