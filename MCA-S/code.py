@@ -143,6 +143,21 @@ class mcagov():
                 passing = f"{self.last_updated_string},{self.output_filename},{self.total_profile_available},{len(new_list)},{len(new_profiles)},{len(updated_profiles)},{len(new_profiles)+len(updated_profiles)},{len(removed_profiles)},{self.diffrance_filename},{self.removed_filename}\n"
                 outfile.write(pass_first)
                 outfile.write(passing)
+
+    def alias_name(self,nm):
+        a = nm.strip().split(" ")
+        if len(a)>1:
+            try:
+                ret_name =  f"{a[2]} {a[0]} {a[1]}"
+            except:
+                ret_name =  f"{a[1]} {a[0]}"
+            
+        else:
+            ret_name = ""
+        
+        return ret_name  
+        
+
     def parsing(self):
         counter = 0
         url = "https://www.mca.gov.in/MinistryV2/defaultersecretarieslist.html"
@@ -201,7 +216,7 @@ class mcagov():
                         else:
                             item['uid'] = hashlib.sha256(((signatory_id+name+"MCA-Secretaries").lower()).encode()).hexdigest()
                             item['name'] = name
-                            item['alias_name'] = []
+                            item['alias_name'] = [self.alias_name(name)]
                             item['country'] = ["India"]
                             item['list_type'] = "Individual"
                             item['last_updated'] = self.last_updated_string
