@@ -12,7 +12,7 @@ old_month = f'{yesterday.month}-{yesterday.year}'
 
 del_dates1 = []
 del_dates2 = []
-for k in range(10,150):
+for k in range(10,100):
     ys = today_date - timedelta(days=k)
     del_dates2.append(ys)
     del_dates1.append(f'{ys.day}-{ys.month}-{ys.year}')
