@@ -8,12 +8,12 @@ from datetime import timedelta,date
 today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
 
+dag_name = "hk-sanc"
+output_filename = f'{dag_name}-output-{today_date}.json'
+diffrance_filename = f'{dag_name}-diffrance-{today_date}.json'
+removed_filename = f'{dag_name}-removed-{today_date}.json'
 
-diffrance_filename = f'diffrance-un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-output_filename = f'un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-removed_filename = f'removed-un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-
-root = "/home/ubuntu/sanctions-scripts/UN-SANCTIONS/"
+root = "/home/ubuntu/sanctions-scripts/HK-SANCATION/"
 # root = ""
 op_path = f"{root}outputfiles"
 dp_path = f"{root}diffrancefiles"

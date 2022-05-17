@@ -270,16 +270,17 @@ def fileprocessor():
         out_obj["last_updated"] = last_updated_string
         out_obj["documents"] = docs
         out_obj["comment"] = comment.strip()
-        out_obj["list_id"] = "UN_S10005"
         out_obj["sanction_list"] = {
-                "sl_authority": "United Nations Security Council",
-                "sl_url": "https://www.un.org/securitycouncil/content/un-sc-consolidated-list",
-                "watch_list": "Global Watchlists",
-                "sl_host_country": "International",
-                "sl_type": "Sanctions",
-                "sl_source": "United Nations Security Council Consolidated List",
-                "sl_description" : "The Consolidated List includes all individuals and entities subject to measures imposed by the Security Council."
+            "sl_authority": "Hong Kong Monetary Authority, Hong Kong",
+            "sl_url": "https://www.hkma.gov.hk/eng/key-functions/banking/anti-money-laundering-and-counter-financing-of-terrorism/sanctions-related-notices-updates/",
+            "sl_host_country": "Hong Kong",
+            "sl_type": "Sanctions",
+            "watch_list": "APAC Watchlists",
+            "sl_source": "Hong Kong Monetary Authority Sanctions List, Hong Kong",
+            "sl_description": "List of sanctioned individual and entities by Hong Kong Monetary Authority, Hong Kong.",
+            "list_id": "HKG_E20162"
         }
+
 
         out_list.append(out_obj)
     
@@ -365,15 +366,15 @@ def fileprocessor():
         out_obj["nns_status"] = False
         out_obj["last_updated"] = last_updated_string
         out_obj["comment"] = comment.strip()
-        out_obj["list_id"] = "UN_S10005"
         out_obj["sanction_list"] = {
-                "sl_authority": "United Nations Security Council",
-                "sl_url": "https://www.un.org/securitycouncil/content/un-sc-consolidated-list",
-                "watch_list": "Global Watchlists",
-                "sl_host_country": "International",
-                "sl_type": "Sanctions",
-                "sl_source": "United Nations Security Council Consolidated List",
-                "sl_description" : "The Consolidated List includes all individuals and entities subject to measures imposed by the Security Council."
+            "sl_authority": "Hong Kong Monetary Authority, Hong Kong",
+            "sl_url": "https://www.hkma.gov.hk/eng/key-functions/banking/anti-money-laundering-and-counter-financing-of-terrorism/sanctions-related-notices-updates/",
+            "sl_host_country": "Hong Kong",
+            "sl_type": "Sanctions",
+            "watch_list": "APAC Watchlists",
+            "sl_source": "Hong Kong Monetary Authority Sanctions List, Hong Kong",
+            "sl_description": "List of sanctioned individual and entities by Hong Kong Monetary Authority, Hong Kong.",
+            "list_id": "HKG_E20162"
         }
 
         out_list.append(out_obj)
@@ -383,11 +384,11 @@ def fileprocessor():
     #NOTE:Saving outputfile localy 
     try:
         with open(f'{op_path}/{output_filename}', "w",encoding='utf-8') as outfile:
-            json.dump(out_list, outfile,ensure_ascii=False)
+            json.dump(out_list, outfile,ensure_ascii=False,indent=2)
     except FileNotFoundError:
         os.mkdir(op_path)
         with open(f'{op_path}/{output_filename}', "w",encoding='utf-8') as outfile:
-            json.dump(out_list, outfile,ensure_ascii=False)
+            json.dump(out_list, outfile,ensure_ascii=False,indent=2)
 
 def CompareDocument():
     try:
