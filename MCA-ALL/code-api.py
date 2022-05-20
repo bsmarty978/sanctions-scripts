@@ -3,6 +3,9 @@ import requests
 import json
 import string
 from string import punctuation
+from datetime import datetime,date,timedelta
+today_date  = date.today()
+# yesterday = today_date - timedelta(days = 1)
 # l = list(string.ascii_lowercase)
 # ml = []
 # for i in l:
@@ -53,8 +56,8 @@ for d in ml:
         print(f"-->{e}")
     # c+=1
 
-with open(f"{root}mca-all-ds.json", "w",encoding='utf-8') as outfile:
+with open(f"{root}mca-all-ds-{today_date}.json", "w",encoding='utf-8') as outfile:
     json.dump(main_out_list, outfile, ensure_ascii=False, indent=4)
 
-with open(f"{root}failed_names-ds.json", "w",encoding='utf-8') as outfile:
+with open(f"{root}failed_names-ds-{today_date}.json", "w",encoding='utf-8') as outfile:
     json.dump(failed_names, outfile, ensure_ascii=False, indent=4)
