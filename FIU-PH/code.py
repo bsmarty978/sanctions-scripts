@@ -15,26 +15,29 @@ from os.path import exists
 #NOTE: Object for output json file
 out_list = []
 total_profile_available = 0
+dag_name = "fiu-ph"
 
 #NOTE: Filename according to the date :
 today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
 last_updated_string = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-input_filename  = f'un-xml-{today_date.day}-{today_date.month}-{today_date.year}.xml'
-output_filename = f'un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-diffrance_filename = f'diffrance-un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-removed_filename = f'removed-un-json-{today_date.day}-{today_date.month}-{today_date.year}.json'
-old_output_filename = f'un-json-{yesterday.day}-{yesterday.month}-{yesterday.year}.json'
+input_filename  = f'{dag_name}-input-{today_date}.xml'
+output_filename = f'{dag_name}-output-{today_date}.json'
+diffrance_filename = f'{dag_name}-diffrance-{today_date}.json'
+removed_filename = f'{dag_name}-removed-{today_date}.json'
+old_output_filename = f'{dag_name}-output-{yesterday}.json'
+lp_name = f'{dag_name}-logfile.csv'
 
 #NOTE: Paths of directories
-root = "/home/ubuntu/sanctions-scripts/UN-SANCTIONS/"
+root = "/home/ubuntu/sanctions-scripts/FIU-PH/"
 # root = ""
 ip_path = f"{root}inputfiles"
 op_path = f"{root}outputfiles"
 dp_path = f"{root}diffrancefiles"
 rm_path = f"{root}removedfiles"
-lp_path = f"{root}un-sanctions-logfile.csv"
+lp_path = f"{root}{lp_name}"
+
 
 
 def alin_gen(nmstr):
@@ -247,7 +250,7 @@ def fileprocessor():
         if alias == []:
            alias = alin_gen(name)
         
-        out_obj["uid"] =  hashlib.sha256(((dataid +"UN SANCTIONS").lower()).encode()).hexdigest()
+        out_obj["uid"] =  hashlib.sha256(((dataid +"PHL_S10051 Financial Intelligence Unit Anti-Money Laundering Council Sanctions List, Philippines").lower()).encode()).hexdigest()
         out_obj["name"] = name
         out_obj["list_type"] = lstype
         out_obj["sanctions_details"] = {
@@ -268,15 +271,15 @@ def fileprocessor():
         out_obj["last_updated"] = last_updated_string
         out_obj["documents"] = docs
         out_obj["comment"] = comment.strip()
-        out_obj["list_id"] = "UN_S10005"
-        out_obj["sanction_list"] = {
-                "sl_authority": "United Nations Security Council",
-                "sl_url": "https://www.un.org/securitycouncil/content/un-sc-consolidated-list",
-                "watch_list": "Global Watchlists",
-                "sl_host_country": "International",
-                "sl_type": "Sanctions",
-                "sl_source": "United Nations Security Council Consolidated List",
-                "sl_description" : "The Consolidated List includes all individuals and entities subject to measures imposed by the Security Council."
+        out_obj["sanction_list"] =  {
+            "sl_authority": "Financial Intelligence Unit Anti-Money Laundering Council, Philippines",
+            "sl_url": "http://www.amlc.gov.ph/un-sanctions-list/unsc-consolidated-lists",
+            "sl_host_country": "Philippines",
+            "sl_type": "Sanctions",
+            "watch_list": "APAC Watchlists",
+            "sl_source": "Financial Intelligence Unit Anti-Money Laundering Council Sanctions List, Philippines",
+            "sl_description": "List of sanctioned individual and entities by Financial Intelligence Unit Anti-Money Laundering Council, Philippines.",
+            "list_id": "PHL_S10051"
         }
 
         out_list.append(out_obj)
@@ -363,15 +366,15 @@ def fileprocessor():
         out_obj["nns_status"] = False
         out_obj["last_updated"] = last_updated_string
         out_obj["comment"] = comment.strip()
-        out_obj["list_id"] = "UN_S10005"
         out_obj["sanction_list"] = {
-                "sl_authority": "United Nations Security Council",
-                "sl_url": "https://www.un.org/securitycouncil/content/un-sc-consolidated-list",
-                "watch_list": "Global Watchlists",
-                "sl_host_country": "International",
-                "sl_type": "Sanctions",
-                "sl_source": "United Nations Security Council Consolidated List",
-                "sl_description" : "The Consolidated List includes all individuals and entities subject to measures imposed by the Security Council."
+            "sl_authority": "Financial Intelligence Unit Anti-Money Laundering Council, Philippines",
+            "sl_url": "http://www.amlc.gov.ph/un-sanctions-list/unsc-consolidated-lists",
+            "sl_host_country": "Philippines",
+            "sl_type": "Sanctions",
+            "watch_list": "APAC Watchlists",
+            "sl_source": "Financial Intelligence Unit Anti-Money Laundering Council Sanctions List, Philippines",
+            "sl_description": "List of sanctioned individual and entities by Financial Intelligence Unit Anti-Money Laundering Council, Philippines.",
+            "list_id": "PHL_S10051"
         }
 
         out_list.append(out_obj)
@@ -381,11 +384,11 @@ def fileprocessor():
     #NOTE:Saving outputfile localy 
     try:
         with open(f'{op_path}/{output_filename}', "w",encoding='utf-8') as outfile:
-            json.dump(out_list, outfile,ensure_ascii=False)
+            json.dump(out_list, outfile,ensure_ascii=False,indent=2)
     except FileNotFoundError:
         os.mkdir(op_path)
         with open(f'{op_path}/{output_filename}', "w",encoding='utf-8') as outfile:
-            json.dump(out_list, outfile,ensure_ascii=False)
+            json.dump(out_list, outfile,ensure_ascii=False,indent=2)
 
 def CompareDocument():
     try:
@@ -499,17 +502,18 @@ def UploadfilestTos3():
     try:
         print("uploading files to s3")
         s3 = boto3.client('s3')
-        s3.upload_file(f'{ip_path}/{input_filename}',"sams-scrapping-data",f"UN-SANCTIONS/original/{input_filename}")
-        s3.upload_file(f'{op_path}/{output_filename}',"sams-scrapping-data",f"UN-SANCTIONS/parced/{output_filename}")
-        s3.upload_file(f'{dp_path}/{diffrance_filename}',"sams-scrapping-data",f"UN-SANCTIONS/diffrance/{diffrance_filename}")
-        s3.upload_file(f'{rm_path}/{removed_filename}',"sams-scrapping-data",f"UN-SANCTIONS/removed/{removed_filename}")
-        s3.upload_file(f'{lp_path}',"sams-scrapping-data","UN-SANCTIONS/UN-SANCTIONS-logfile.csv")
+        s3.upload_file(f'{ip_path}/{input_filename}',"sams-scrapping-data",f"{dag_name}/original/{input_filename}")
+        s3.upload_file(f'{op_path}/{output_filename}',"sams-scrapping-data",f"{dag_name}/parced/{output_filename}")
+        s3.upload_file(f'{dp_path}/{diffrance_filename}',"sams-scrapping-data",f"{dag_name}/diffrance/{diffrance_filename}")
+        s3.upload_file(f'{rm_path}/{removed_filename}',"sams-scrapping-data",f"{dag_name}/removed/{removed_filename}")
+        s3.upload_file(f'{lp_path}',"sams-scrapping-data",f"{dag_name}/{lp_name}")
         print("uploaded files to s3")      
     except Exception as e:
         print("------------------🔴ALERT🔴------------------------")
         print("Can not upload files to s3")
         print("Exception : " , e)
         print("----------------------------------------------------")
+
 
 
 

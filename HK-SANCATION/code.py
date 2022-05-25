@@ -153,8 +153,8 @@ def fileprocessor():
                     adr["country"] = alimeta.find("COUNTRY_OF_BIRTH").text.strip()
                     nationality.append(adr["country"])
 
-            if adr["complete_address"] or adr["country"]:
-                pobs.append(adr)
+            # if adr["complete_address"] or adr["country"]:
+            #     pobs.append(adr)
 
 
         address = []
@@ -216,7 +216,7 @@ def fileprocessor():
             co_adr = co_adr.strip().strip(",").strip()
 
             if co_adr or cont:
-                pobs.append({"completed_address":co_adr,"country":cont})
+                pobs.append(co_adr)
 
         docs = {}
         for doc in entry.find_all("INDIVIDUAL_DOCUMENT"):
@@ -263,7 +263,7 @@ def fileprocessor():
         out_obj["alias"] = alias
         out_obj["individual_details"] = {
             "gender" : gender,
-            "place_of_birty":pobs,
+            "place_of_birth":pobs,
             "date_of_birth" :dobs
         }
         out_obj["nns_status"] = False
