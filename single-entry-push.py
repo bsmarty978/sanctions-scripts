@@ -5,17 +5,17 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-05-19T09:56:13",
+        "last_updated": "2022-05-25T09:56:13",
         "sanction_list": {
-        "sl_authority": "Mexican Insurance and Surety National Commission (Comisión Nacional de Seguros y Fianzas de México), Mexico",
-        "sl_url": "https://www.gob.mx/cnsf/documentos/sanciones-a-instituciones-de-seguros",
-        "sl_host_country": "Mexico",
-        "covers" : "1",
-        "sl_type": "Sanctions",
-        "watch_list": "South and Central America Watchlists",
-        "sl_source": "Mexican Insurance and Surety National Commission (Comisión Nacional de Seguros y Fianzas de México) Sanctions List, Mexico",
-        "sl_description": "List of defaulter Directors by Ministry of Corporate Affairs, India.",
-        "list_id": "MEX_E20209"
+            "sl_authority": "Financial Monitoring Service of the Republic Of Azerbaijan, Azerbaijan",
+            "sl_url": "http://www.fiu.az/en/sanctions/internal-sanctioned",
+            "watch_list": "EMEA Watchlists",
+            "covers" : "1",
+            "sl_type": "Sanctions",
+            "sl_host_country": "Azerbaijan",
+            "sl_source": "Financial Monitoring Service Sanctions Notices List, Azerbaijan",
+            "sl_description": "List of individuals who are sanctioned by Financial Monitoring Service of the Republic Of Azerbaijan, Azerbaijan",
+            "list_id": "AZE_S10014"
         }
         }
     ]
