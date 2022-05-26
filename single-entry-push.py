@@ -5,17 +5,17 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-05-25T09:56:13",
+        "last_updated": "2022-05-26T09:56:13",
         "sanction_list": {
-            "sl_authority": "Financial Monitoring Service of the Republic Of Azerbaijan, Azerbaijan",
-            "sl_url": "http://www.fiu.az/en/sanctions/internal-sanctioned",
-            "watch_list": "EMEA Watchlists",
+            "sl_authority": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
+            "sl_url": "https://www.moj.go.jp/",
+            "sl_host_country": "Japan",
             "covers" : "1",
             "sl_type": "Sanctions",
-            "sl_host_country": "Azerbaijan",
-            "sl_source": "Financial Monitoring Service Sanctions Notices List, Azerbaijan",
-            "sl_description": "List of individuals who are sanctioned by Financial Monitoring Service of the Republic Of Azerbaijan, Azerbaijan",
-            "list_id": "AZE_S10014"
+            "sl_source": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
+            "sl_description": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
+            "watch_list": "APAC Watchlists",
+            "list_id": "JPN_T30104"
         }
         }
     ]

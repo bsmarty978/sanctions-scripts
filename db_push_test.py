@@ -45,7 +45,7 @@ def write_data_to_esdb(es,identity,article):
 if __name__ == "__main__":
     try:
         es = Elasticsearch(['15.207.24.247:9200'])
-        file_data = get_data_from_file("/home/ubuntu/sanctions-scripts/raw-files/SNG-767_result.json")
+        file_data = get_data_from_file("/home/ubuntu/sanctions-scripts/JP-PSIA/OutputFiles/2022-05-26_output_sng-771.ch.json")
         if file_data != "NO FILE":
             print("Inserting Data from Given File")
             for sdn in file_data:
