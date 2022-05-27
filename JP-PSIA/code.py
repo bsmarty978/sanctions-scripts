@@ -183,10 +183,8 @@ class Data():
                 item['sanction_list']['sl_url'] = "https://www.moj.go.jp/"
                 item['sanction_list']['sl_host_country'] = "Japan"
                 item['sanction_list']['sl_type'] = "Sanctions"
-                item['sanction_list'][
-                    'sl_source'] = "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan"
-                item['sanction_list'][
-                    'sl_description'] = "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan"
+                item['sanction_list']['sl_source'] = "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan"
+                item['sanction_list']['sl_description'] = "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan"
                 item['sanction_list']['watch_list'] = "APAC Watchlists"
                 item['sanction_list']['list_id'] = "JPN_T30104"
                 self.final_list.append(item)

@@ -19,7 +19,8 @@ today_date  = date.today()
 #             d_l.append(f"{i1}{i2}{i3}")
 
 
-l = list(string.ascii_lowercase) + [str(num) for num in list(range(10))]  + list(punctuation)
+# l = list(string.ascii_lowercase) + [str(num) for num in list(range(10))]  + list(punctuation)
+l = list(string.ascii_lowercase) + [str(num) for num in list(range(10))]  + ['"',"'","(",")","[","]",".",":","&","@","+"]
 ml = [] 
 for i in l:
     for k in l:
