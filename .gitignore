@@ -8,3 +8,4 @@
 OFAC-NONSDN/.es.py.swp
 OFAC-NONSDN/local.py.save
 RFJ-1/__pycache__/code.cpython-38.pyc
+*.log
