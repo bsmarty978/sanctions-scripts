@@ -5,18 +5,17 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-06-01T07:13:12",
-        "sanction_list": {
-            "sl_authority": "MCX Regulatory Defaulting Clients, India",
-            "sl_url": "https://www.bseindia.com/",
-            "sl_host_country": "India",
-            "sl_type": "Sanctions",
-            "covers" : "1",
-            "sl_source": "MCX Regulatory Defaulting Clients, India",
-            "sl_description": "MCX Regulatory Defaulting Clients, India",
-            "watch_list": "India Watchlists",
-            "list_id": "IND_E20310"
-        }
+        "last_updated": "2022-03-03T12:23:05",
+          "sanction_list" : {
+            "sl_authority" : "INTERPOL",
+            "sl_url" : "https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Individuals",
+            "sl_host_country" : "United States of America",
+            "sl_type" : "Sanctions",
+            "list_id" : "INT_T30093",
+            "sl_source" : "Interpol-United Nations Security Council Special Notices for Individuals",
+            "sl_description" : "The INTERPOL-United Nations Security Council Special Notice alerts global police to individuals and entities that are subject to sanctions imposed by the United Nations Security Council. The three most common sanctions are assets freeze, travel ban and arms embargo.",
+            "watch_list" : "Global Watchlists"
+          }
         }
     ]
         
