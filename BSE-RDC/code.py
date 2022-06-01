@@ -17,8 +17,8 @@ today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
 last_updated_string = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-dag_name = "nsr-rdc"
-root = "/home/ubuntu/sanctions-scripts/NSE-RDC/"
+dag_name = "bse-rdc"
+root = "/home/ubuntu/sanctions-scripts/BSE-RDC/"
 
 input_filename  = f'{dag_name}-inout-{today_date}.xlsx'
 output_filename = f'{dag_name}-output-{today_date}.json'
@@ -35,7 +35,7 @@ rm_path = f"{root}removedfiles"
 lp_path = f"{root}{dag_name}-logfile.csv"
 
 def get_hash(n):
-    return hashlib.sha256(((n+"NSE Regulatory Defaulting Clients, India IND_E20310").lower()).encode()).hexdigest()
+    return hashlib.sha256(((n+"BSE Regulatory Defaulting Clients, India IND_E20310").lower()).encode()).hexdigest()
 
 def sourcedownloader():
     try:
@@ -58,24 +58,28 @@ def sourcedownloader():
 def process_data():
     global out_list,last_updated_string,total_profile_available
 
-    df = pd.read_excel(f'{ip_path}/{input_filename}',sheet_name='NSE')
+    df = pd.read_excel(f'{ip_path}/{input_filename}',sheet_name='BSE')
     # df = pd.read_excel('https://www.bseindia.com/downloads1/Defaulting_clients.xlsx',sheet_name='NSE')
 
     for i in range(len(df)):
         try:
-            name = df.iloc[i, 1]
+            name = df.iloc[i, 3]
         except:
             name = ""
         try:
-            pan = df.iloc[i, 2]
+            notice_no = df.iloc[i, 1]
+        except:
+            notice_no = ''
+        try:
+            pan = df.iloc[i, 4]
         except:
             pan = ''
         try:
-            Appellate_Matter_No = df.iloc[i, 4]
+            ref_no = df.iloc[i, 6]
         except:
-            Appellate_Matter_No = ''
+            ref_no = ''
         try:
-            Award1 = df.iloc[i, 5]
+            Award1 = df.iloc[i, 7]
             converted_num = str(Award1)
             Award = converted_num.replace(' 00:00:00','')
         except Exception as e:
@@ -83,14 +87,16 @@ def process_data():
             Award = ''
         try:
             comment = ""
-            comment = df.iloc[i, 6]
+            comment = df.iloc[i, 8]
         except:
             comment = ""
-        
-        if not name:
+
+        if not name or name == "Name of  Defaulting Client":
             continue
+
         item = {}
-        item['uid'] = get_hash(name.strip())
+        a = notice_no+' '+name
+        item['uid'] = get_hash(a)
         item['name'] = name.strip()
         item['alias_name'] = []
         item['country'] = ["India"]
@@ -98,26 +104,25 @@ def process_data():
         item['last_updated'] = last_updated_string
         item['individual_details'] = {}
         item['nns_status'] = False
-        item['address'] = []
-        add = {}
-        add['complete_address'] = ""
-        add['country'] = ""
-        item['address'].append(add)
+        item['address'] = [
+            {
+                "complete_address" : "",
+                "country" : ""
+            }
+        ]
         item['sanction_details'] = {}
-        item['sanction_details']['body'] = Appellate_Matter_No
-        item['sanction_details']['date_of_order'] = Award
+        item['sanction_details']['body'] = ref_no
+        item['sanction_details']['date_or_order'] = Award
         item['documents'] = {}
         item['documents']['PAN'] = [pan]
         item['comment'] = comment
         item['sanction_list'] = {}
-        item['sanction_list']['sl_authority'] = "NSE Regulatory Defaulting Clients, India"
+        item['sanction_list']['sl_authority'] = "BSE Regulatory Defaulting Clients, India"
         item['sanction_list']['sl_url'] = "https://www.bseindia.com/"
         item['sanction_list']['sl_host_country'] = "India"
         item['sanction_list']['sl_type'] = "Sanctions"
-        item['sanction_list'][
-            'sl_source'] = "NSE Regulatory Defaulting Clients, India"
-        item['sanction_list'][
-            'sl_description'] = "NSE Regulatory Defaulting Clients, India"
+        item['sanction_list']['sl_source'] = "BSE Regulatory Defaulting Clients, India"
+        item['sanction_list']['sl_description'] = "BSE Regulatory Defaulting Clients, India"
         item['sanction_list']['watch_list'] = "India Watchlists"
         item['sanction_list']['list_id'] = "IND_E20310"
         out_list.append(item)     

@@ -5,17 +5,17 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-05-26T09:56:13",
+        "last_updated": "2022-06-01T07:13:12",
         "sanction_list": {
-            "sl_authority": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
-            "sl_url": "https://www.moj.go.jp/",
-            "sl_host_country": "Japan",
-            "covers" : "1",
+            "sl_authority": "BSE Regulatory Defaulting Clients, India",
+            "sl_url": "https://www.bseindia.com/",
+            "sl_host_country": "India",
             "sl_type": "Sanctions",
-            "sl_source": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
-            "sl_description": "Japan Public Security Intelligence Agency Terrorists Ogranisations, Japan",
-            "watch_list": "APAC Watchlists",
-            "list_id": "JPN_T30104"
+            "covers" : "1",
+            "sl_source": "BSE Regulatory Defaulting Clients, India",
+            "sl_description": "BSE Regulatory Defaulting Clients, India",
+            "watch_list": "India Watchlists",
+            "list_id": "IND_E20310"
         }
         }
     ]
