@@ -7,13 +7,13 @@ data = [
     {
         "last_updated": "2022-06-01T07:13:12",
         "sanction_list": {
-            "sl_authority": "BSE Regulatory Defaulting Clients, India",
+            "sl_authority": "MCX Regulatory Defaulting Clients, India",
             "sl_url": "https://www.bseindia.com/",
             "sl_host_country": "India",
             "sl_type": "Sanctions",
             "covers" : "1",
-            "sl_source": "BSE Regulatory Defaulting Clients, India",
-            "sl_description": "BSE Regulatory Defaulting Clients, India",
+            "sl_source": "MCX Regulatory Defaulting Clients, India",
+            "sl_description": "MCX Regulatory Defaulting Clients, India",
             "watch_list": "India Watchlists",
             "list_id": "IND_E20310"
         }
