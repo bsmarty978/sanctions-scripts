@@ -7,9 +7,7 @@ from os.path import exists
 import pandas as pd
 import time as t
 import boto3
-import copy
 import hashlib
-import dateparser
 
 
 #NOTE: Filename according to the date :
