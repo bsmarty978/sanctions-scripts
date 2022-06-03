@@ -1,3 +1,4 @@
+import encodings
 import requests
 import json
 from datetime import datetime,date,timedelta
@@ -16,10 +17,10 @@ today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
 last_updated_string = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-dag_name = "mcx-n"
-root = "/home/ubuntu/sanctions-scripts/MCX-N/"
+dag_name = "mse"
+root = "/home/ubuntu/sanctions-scripts/MSE/"
 
-input_filename  = f'{dag_name}-inout-{today_date}.xlsx'
+# input_filename  = f'{dag_name}-inout-{today_date}.xlsx'
 output_filename = f'{dag_name}-output-{today_date}.json'
 diffrance_filename = f'{dag_name}-diffrance-{today_date}.json'
 removed_filename = f'{dag_name}-removed-{today_date}.json'
@@ -27,32 +28,15 @@ old_output_filename = f'{dag_name}-output-{yesterday}.json'
 lp_name = f'{dag_name}-logfile.csv'
 #NOTE: Paths of directories
 # root = ""
-ip_path = f"{root}inputfiles"
+# ip_path = f"{root}inputfiles"
 op_path = f"{root}outputfiles"
 dp_path = f"{root}diffrancefiles"
 rm_path = f"{root}removedfiles"
 lp_path = f"{root}{dag_name}-logfile.csv"
 
 def get_hash(n):
-    return hashlib.sha256(((n+"MCX clients of the Defaulter Members, India IND_E20316").lower()).encode()).hexdigest()
+    return hashlib.sha256(((n+"MSE Expelled Members, India IND_E20322").lower()).encode()).hexdigest()
 
-def sourcedownloader():
-    r = requests.get("https://www.mcxindia.com/Investor-Services/defaulters/list-of-clients-of-the-defaulter-members-apportioned-amount-not-claimed")
-    resp = HtmlResponse("example.com",body=r.text,encoding='utf-8')
-    url = resp.xpath("//div[@class='pdf-box xlsx-box']/p/a/@href").get()
-    
-    headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
-        }
-    res = requests.get(url,headers=headers)
-
-    try:
-        with open(f'{ip_path}/{input_filename}', "wb") as infile:
-            infile.write(res.content)
-    except FileNotFoundError:
-        os.mkdir(ip_path)
-        with open(f'{ip_path}/{input_filename}', "wb") as infile:
-            infile.write(res.content)
 
 
 def alias_name(name):
@@ -65,17 +49,19 @@ def alias_name(name):
 
 def process_data():
     global out_list,last_updated_string,total_profile_available
-    df = pd.read_excel(f'{ip_path}/{input_filename}')
-    data = df.values.tolist()
-    for i in data:
+    # df = pd.read_excel(f'{ip_path}/{input_filename}')
+    r = requests.get("https://www.msei.in/Investors/defaulters")
+    resp = HtmlResponse("example.com",body=r.text,encoding='utf-8')
+
+    for i in resp.xpath("(//table)[position()<4]/tbody/tr[@class='alt']"):
         d = {
             "uid": "",
             "name": "",
             "alias_name": [],
             "country": ["India"],
-            "list_type": "Individual",
+            "list_type": "Entity",
             "last_updated": last_updated_string,
-            "individual_details": {
+            "entity_details": {
             "date_of_birth": [],
             },
             "nns_status": "False",
@@ -85,33 +71,36 @@ def process_data():
                 "complete_address": ""
                 }
             ],
-            "relationship_details":{
-                "associate":""
+            "sanction_details":{
+                "issue_date" : ""
             },
-            "sanction_details":{},
             "documents": {},
             "comment": "",
             "sanction_list": {
-                "sl_authority": "Multi Commodity Exchange of India Ltd, India",
-                "sl_url": "https://www.mcxindia.com/Investor-Services/defaulters/list-of-clients-of-the-defaulter-members-apportioned-amount-not-claimed",
+                "sl_authority": "Metropolitan Stock Exchange, India",
+                "sl_url": "https://www.msei.in/Investors/defaulters",
                 "watch_list": "India Watchlists",
                 "sl_host_country": "India",
                 "sl_type": "Sanctions",
-                "sl_source": "MCX clients of the Defaulter Members, India",
-                "sl_description": "list of defaulting Members by Multi Commodity Exchange of India Ltd, India",
-                "list_id": "IND_E20316"
+                "sl_source": "MSE Expelled Members, India",
+                "sl_description": "list of Debarred Entities by Metropolitan Stock Exchange, India",
+                "list_id": "IND_E20322"
+                }
             }
-            }
+        name = i.xpath("normalize-space(./td[4]/text())").get()
+        
 
-        name = i[1]
-        if name!="" and name!="Name of Client":
-            d["name"] = name
+        date = i.xpath("normalize-space(./td[3]/text())").get()
+        if name:
+            if "M/s" in name:
+                d["alias_name"].append(name)
+                name =  name.replace("M/s","").strip()
+
             d["uid"] = get_hash(name)
-            d["alias_name"] = alias_name(d["name"])
-            relations = i[2]
-            if relations!="":
-                d["relationship_details"]["associate"] = relations
+            d["name"] = name
+            d["sanction_details"]["issue_date"]= date
             out_list.append(d)
+
 
     total_profile_available = len(out_list)
     print(f"Total profile available: {total_profile_available}")
@@ -206,12 +195,12 @@ def CompareDocument():
 
     if exists(lp_path):
         with open(f'{lp_path}',"a") as outfile:
-            passing = f"{last_updated_string},{input_filename},{output_filename},{total_profile_available},{len(new_list)},{len(new_profiles)},{len(updated_profiles)},{len(new_profiles)+len(updated_profiles)},{len(removed_profiles)},{diffrance_filename},{removed_filename}\n"
+            passing = f"{last_updated_string}{output_filename},{total_profile_available},{len(new_list)},{len(new_profiles)},{len(updated_profiles)},{len(new_profiles)+len(updated_profiles)},{len(removed_profiles)},{diffrance_filename},{removed_filename}\n"
             outfile.write(passing)
     else:
         with open(f'{lp_path}',"a") as outfile:
-            pass_first = "date,inputfile,outputfile,total_profile_availabe,total_profile_scraped,new,updated,diffrance,removed,diffrancefile,removedfile\n"
-            passing = f"{last_updated_string},{input_filename},{output_filename},{total_profile_available},{len(new_list)},{len(new_profiles)},{len(updated_profiles)},{len(new_profiles)+len(updated_profiles)},{len(removed_profiles)},{diffrance_filename},{removed_filename}\n"
+            pass_first = "date,outputfile,total_profile_availabe,total_profile_scraped,new,updated,diffrance,removed,diffrancefile,removedfile\n"
+            passing = f"{last_updated_string}{output_filename},{total_profile_available},{len(new_list)},{len(new_profiles)},{len(updated_profiles)},{len(new_profiles)+len(updated_profiles)},{len(removed_profiles)},{diffrance_filename},{removed_filename}\n"
             outfile.write(pass_first)
             outfile.write(passing)
 
@@ -219,7 +208,7 @@ def UploadfilestTos3():
     try:
         print("uploading files to s3")
         s3 = boto3.client('s3')
-        s3.upload_file(f'{ip_path}/{input_filename}',"sams-scrapping-data",f"{dag_name}/original/{input_filename}")
+        # s3.upload_file(f'{ip_path}/{input_filename}',"sams-scrapping-data",f"{dag_name}/original/{input_filename}")
         s3.upload_file(f'{op_path}/{output_filename}',"sams-scrapping-data",f"{dag_name}/parced/{output_filename}")
         s3.upload_file(f'{dp_path}/{diffrance_filename}',"sams-scrapping-data",f"{dag_name}/diffrance/{diffrance_filename}")
         s3.upload_file(f'{rm_path}/{removed_filename}',"sams-scrapping-data",f"{dag_name}/removed/{removed_filename}")
@@ -231,7 +220,6 @@ def UploadfilestTos3():
         print("Exception : " , e)
         print("----------------------------------------------------")
 
-sourcedownloader()
 process_data()
 CompareDocument()
 UploadfilestTos3() 
