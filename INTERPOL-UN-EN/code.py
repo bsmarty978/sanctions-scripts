@@ -168,8 +168,11 @@ def process_data():
         
         d["uid"] = get_hash(name+eid)
         d["name"] = name
-        alias = list(set(alias))
-        d["alias_name"] = alias
+        ali = []
+        for al in alias:
+            ali.append(al.replace("F.K.A.:","").strip())
+        ali = list(set(ali))
+        d["alias_name"] = ali
         d["address"] = adrs
         d["sanction_details"]["referance_no"] = un_ref_no
         d["sanction_details"]["issue_date"] = un_ref_date
