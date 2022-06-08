@@ -88,7 +88,10 @@ def process_data():
             #print("00000",title)
 
         country = file[file["Name"]==name].Country
-        d["country"].append(country.iloc[0])
+        try:
+            d["country"].append(country.iloc[0])
+        except:
+            pass
 
         
         tin = i["inn"]
