@@ -41,8 +41,9 @@ def process_data():
     global out_list,last_updated_string,total_profile_available
 
     url = "https://www.mas.gov.sg/api/v1/ialsearch?json.nl=map&wt=json&sort=date_dt%20desc&q=*:*&rows=1&start=0"
-    headers = {"Content-Type": "application/json, text/plain, */*","Host" : "www.mas.gov.sg"}
+    headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.33","Content-Type": "application/json, text/plain, */*","Host" : "www.mas.gov.sg"}
     resp = requests.get(url, headers= headers)
+    # print(resp)
     data = json.loads(resp.text)
     num = data['response']['numFound']
 
@@ -244,5 +245,5 @@ def UploadfilestTos3():
 
 
 process_data()
-CompareDocument()
-UploadfilestTos3()
+# CompareDocument()
+# UploadfilestTos3()

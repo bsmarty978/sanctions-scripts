@@ -62,11 +62,11 @@ def datascraper1(passobj):
         
         forename = k["forename"] if k["forename"] else ""
         name = k["name"] if k["name"] else ""
-        name = (name + forename).strip()
+        name = (name + " " +forename).strip()
         
         alias = []
         if forename and name:
-            alias.append(forename+name)
+            alias.append(forename+ " " +name)
             
         dob = [k["date_of_birth"]] if k["date_of_birth"] else []
         nationalities = k["nationalities"] if k["nationalities"] else []
@@ -104,11 +104,11 @@ def datascraper(passobj):
 
         forename = sdata["forename"] if sdata["forename"] else ""
         name = sdata["name"] if sdata["name"] else ""
-        name = (name + forename).strip()
+        pass_name = (forename + " " + name).strip()
         
         alias = []
         if forename and name:
-            alias.append(forename+name)
+            alias.append(name+ " " +forename)
         
         gender = sdata["sex_id"] if sdata["sex_id"] else ""
         if gender == "M":
@@ -121,6 +121,12 @@ def datascraper(passobj):
         dob = [sdata["date_of_birth"]] if sdata["date_of_birth"] else []
 
         pob = sdata["place_of_birth"] if sdata["place_of_birth"] else ""
+        adrs = []
+        if pob:
+            adrs.append({
+                "complete_address" : pob,
+                "country" : ""
+            })
 
         nationalities = sdata["nationalities"] if sdata["nationalities"] else []
         contry = []
@@ -146,8 +152,8 @@ def datascraper(passobj):
 
         ret_list.append(
             {
-            'uid' :get_hash(eid+name),
-            'name':name,
+            'uid' :get_hash(eid+pass_name),
+            'name':pass_name,
             'alias_name':alias, 
             'country': contry,
             'list_type':"Individual",
@@ -160,11 +166,11 @@ def datascraper(passobj):
             },
             'sanction_details':{},    
             'nns_status':"False",
-            'address':[],
+            'address':adrs,
             'comment':"",   
             "sanction_list" : {
             "sl_authority" : "Interpol",
-            "sl_url" : "https://www.interpol.int/",
+            "sl_url" : "https://www.interpol.int/en/How-we-work/Notices/View-Red-Notices#",
             "watch_list" : "Global Watchlists",
             "sl_host_country" : "United Nations",
             "sl_type" : "Interpol Wanted",

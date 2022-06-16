@@ -5,18 +5,18 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-06-03T12:23:05",
+        "last_updated": "2022-06-15T12:23:05",
         "sanction_list": {
-            "sl_authority": "Metropolitan Stock Exchange, India",
-            "sl_url": "https://www.msei.in/Investors/defaulters",
-            "watch_list": "India Watchlists",
-            "sl_host_country": "India",
+            "sl_authority": "The Securities Commission Malaysia (SC), Malaysia",
+            "sl_url": "https://www.sc.com.my/regulation/enforcement/investor-alerts/sc-investor-alerts/investor-alert-list",
+            "watch_list": "APAC Watchlists",
+            "sl_host_country": "Malaysia",
             "covers" : "1",
             "sl_type": "Sanctions",
-            "sl_source": "MSE Expelled Members, India",
-            "sl_description": "list of Debarred Entities by Metropolitan Stock Exchange, India",
-            "list_id": "IND_E20322"
-            }
+            "sl_source": "The Securities Commission Malaysia Investor Alert List, Malaysia",
+            "sl_description": "List of unauthorised websites, investment products, companies and individuals issued by The Securities Commission Malaysia (SC), Malaysia",
+            "list_id": "MYS_E20199"
+        }
         }
     ]
         
@@ -35,8 +35,8 @@ i = 0
 for record in lst:
     print(i)
     try:
-        # res = es.index(index=dbName, id=record['uid'], body=record, op_type = 'create')
-        res = es.index(index=dbName, id=record['uid'], body=record) # NOTE if It need to be updated
+        res = es.index(index=dbName, id=record['uid'], body=record, op_type = 'create')
+        # res = es.index(index=dbName, id=record['uid'], body=record) # NOTE if It need to be updated
         print(res)
         i +=1
     except Exception as ex:

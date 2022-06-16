@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FCRA Online Services</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" href="C/B/css/bootstrap.min.css" />
+<!--<link rel="stylesheet" href="C/B/css/style.css" />-->
+<link rel="stylesheet" href="C/B/css/style2.css" />
+<link rel="stylesheet" href="C/B/css/font.css" />
+<link rel="stylesheet" media="all" href="C/B/css/font-awesome.min.css" />
+<link href="C/theme/css/site.css" rel="stylesheet" media="all" />
+<link href="C/theme/css/site-responsive.css" rel="stylesheet"
+    media="all" />
+<link href="C/assets/css/base.css" rel="stylesheet" media="all" />
+<link href="C/assets/css/base-responsive.css" rel="stylesheet"
+    media="all" />
+<link href="C/assets/css/jquery-ui.css" rel="stylesheet" />
+<link href="C/assets/css/bootstrap-datepicker.css" rel="stylesheet"
+    type="text/css" />
+<link href="C/assets/msg/animate.min.css" rel="stylesheet" />
+<script type="text/javascript" src="validation.js"></script>
+<script type="text/javascript" src="C/assets/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="C/B/js/jquery.tinycarousel.js"></script>
+<script type="text/javascript" src="C/B/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="C/theme/js/site.js"></script>
+<script type="text/javascript" src="C/assets/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="C/assets/msg/bootstrap-notify.min.js"></script>
+<script src="C/assets/bootstrap/js/bootbox.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function Notify(msg, type) {
+        $.notify(msg, {
+            offset: {
+                x: 10,
+                y: 100,
+            },
+            type: type || 'info',
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            title: "FCRA Message"
+        });
+    }
+
+    function onlyNos(e, t) {
+    try {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+    catch (err) {
+        alert(err.Description);
+    }
+}
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({ format: 'dd/mm/yyyy', autoclose: true })
+    });
+</script>
+
+    <title>FCRA Online Services</title>
+    <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR"/>
+    <meta content="Visual Basic .NET 7.1" name="CODE_LANGUAGE"/>
+    <meta content="JavaScript" name="vs_defaultClientScript"/>
+    <meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema"/>
+    <script type="javascript">
+        window.history.forward(0);
+        function logout() {
+            //alert("button clciked");
+            //document.Form1.action='fc3_login.aspx';
+            document.Form1.target = '_top';
+            //document.Form1.submit();
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div class="wrapper">
+    
+</div>
+<header class="container">
+  <div class="row">
+    <div class="col-xs-3" style="width: 21%;">
+      <a href="Home/index.aspx"><h1 class="logo"></h1> <li class="gov-india" style="padding:14px 0 0 48px; margin-left:-14px;"> <span>भारत सरकार,</span>गृह मंत्रालय 
+                        <br />Ministry of Home Affairs </li>   </a> 
+
+                    
+                 
+    </div>
+<div class="col-xs-9 pull-right" style="padding: 23px;color: brown;font-weight:bold">
+     <marquee onmouseover="this.stop()" onmouseout="this.start();"> 
+         <span><a href='/Home/PDF_Doc/fc_notice_24032022.pdf' target="_blank" style="text-decoration:none;">Extension of the validity of FCRA registration certificates<sup style="vertical-align:super;font-size:smaller;"><img src="/images/new.gif" alt=""></sup></a></span> 
+         <br />
+
+         <span><a href='/Home/PDF_Doc/fc_notice_31032022.pdf' target="_blank" style="text-decoration:none;">Extension of Time for Submission/Uploading of online Annual Returns for the Year 2020-2021- regarding.<sup style="vertical-align:super;font-size:smaller;"><img src="/images/new.gif" alt=""></sup></a></span> 
+
+     </marquee>
+
+ </div>
+
+
+
+    
+    
+  </div>
+</header>
+<!-------------------navbar-------------------->
+ 
+<nav id="Header1_Nav_Menu_Home" class="navbar navbar-default">
+  <div class="container">
+   
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a href="Home/index.aspx" class="navbar-brand"><span class="fa fa-home"></span></a>
+      </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Act &amp; Rules / Regulations &nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu">
+
+
+            <li><a href="Home/PDF_Doc/FC-RegulationAct-2010-C.pdf" target="_blank">Foreign Contribution (Regulation) Act, 2010</a></li>
+<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Amendment to the Act&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                
+                      <li><a href="Home/PDF_Doc/fc_amend_07102020_1.pdf" target="_blank"><span>The Foreign Contribution (Regulation) Amendment Act, 2020</span></a></li>
+                      <li><a href="Home/PDF_Doc/fc_amend_07102020_2.pdf" target="_blank"><span>Section 220 of the Finance Act, 2018</span></a></li>
+                      <li><a href="Home/PDF_Doc/fc_amend_07102020_3.pdf" target="_blank"><span>Section 236 of the Finance Act, 2016</span></a></li>
+              </ul>
+            </li>
+            <li><a href='Home/PDF_Doc/FC-rules2011.pdf' target="_blank">Foreign Contribution (Regulation) Rules, 2011</a></li>
+            <li><a href="Home/PDF_Doc/doc%20main%203.pdf" target="_blank">Foreign Contribution (Acceptance or Retention of Gifts or Presentations) Rules, 2012</a></li>
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Amendments to Rules&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="Home/PDF_Doc/doc%205-1.pdf" target="_blank"><span>Foreign Contribution (Regulation) Amendment Rules, 2012</span></a></li>
+                      <li><a href="Home/PDF_Doc/doc00600120151214130739.pdf" target="_blank"><span>Foreign Contribution (Regulation) Amendment Rules 2015</span></a></li>
+                      <li><a href="Home/PDF_Doc/FC_12032019.pdf" target="_blank"><span>Foreign Contribution (Regulation) Amendment Rules 2019</span></a></li>
+                      <li><a href="Home/PDF_Doc/FC_17092019.pdf" target="_blank"><span>Foreign Contribution (Regulation)(Second Amendment) Rules, 2019</span></a></li>
+		      <li><a href="Home/PDF_Doc/fc_rules_12112020.pdf" target="_blank"><span>Foreign Contribution (Regulation) (Amendment) Rules, 2020</span></a></li>
+                      <li><a href="Home/PDF_Doc/fc_corr_12012021.pdf" target="_blank"><span>Corrigendum to the Foreign Contribution (Regulation) (Amendment) Rules, 2020</span></a></li>
+              </ul>
+            </li>
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Notifications under Act / Rules&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+		<li><a href="Home/PDF_Doc/fc_07072021.pdf" target="_blank"><span>Exemption for being Foreign Source</span></a></li>
+                  <li><a href="Home/PDF_Doc/fc_notf_08102020.pdf" target="_blank"><span>Notification specifying Branch of State Bank of India<br /> for receipt of FC under Section 17(1) of  FCRA, 2010</span></a></li>
+<li><a href="Home/PDF_Doc/fc_amend_07102020.pdf" target="_blank"><span>Enforcement of the provisions of the <br />Foreign Contribution (Regulation) Amendment Act, 2020</span></a></li>
+                <li><a href="Home/PDF_Doc/doc%206-1.pdf" target="_blank"><span>In Effect of FCRA, 2010 and FCRA, 2011</span></a></li>
+                  <li><a href='Home/PDF_Doc/doc%206-2.pdf' target="_blank"><span>Exemption from FCRA, 2010</span></a></li>
+                  <li><a href="Home/PDF_Doc/doc%206-3.pdf" target="_blank"><span>Exemption for being foreign source</span></a></li>
+                  <li><a href='Home/PDF_Doc/doc%206-4.pdf' target="_blank"><span>Accountable penalties in respect of acceptance of foreign<br /> contribution without registration/ FCRA prior permission</span></a></li>
+                  <li><a href="Home/PDF_Doc/doc%206-5-6.pdf" target="_blank"><span>Details of Investigating Agencies/Authorities in respect of any Offence</span></a></li>
+                  <li><a href="Home/PDF_Doc/doc%206-7.pdf" target="_blank"><span>Accountable Penalties in respect of late submission of Annual Returns</span></a></li>
+                  <li><a href="Home/PDF_Doc/fc_Notification_01082018.pdf" target="_blank"><span>Compounding of offences under the FCRA, 2010</span></a></li>
+                  <li><a href="Home/PDF_Doc/fc_notice_13112018.pdf" target="_blank"><span>Management of foreign contribution of person whose certificate has been cancelled</span></a></li>                                                
+              </ul>
+            </li>
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Guidelines&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href='Home/PDF_Doc/Guid-ForeignHospitality.pdf' target="_blank"><span>For Hospitality</span></a></li>                                                
+              </ul>
+            </li>
+            <li><a href='Home/PDF_Doc/FCRA-exemptedAgenciesUN.pdf' target="_blank">List of Agencies not treated as foreign source</a></li>
+          </ul>
+        </li>
+       
+        <li><a href="Home/fcra_onlineform.aspx" target="_self"  >Services Under FCRA </a></li>
+
+
+        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#info">Information Bank&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+           <ul class="dropdown-menu">
+         
+                <li><a href="fc8_statewise.aspx" >List of FCRA Registered Associations</a></li>
+              
+               
+               <li><a  href="fc_Registered_PriorPermission.aspx">List of FCRA Registered Associations under prior permission category</a></li>
+
+                <li><a  href="fc1a_Satewise_old.aspx">List of Associations granted prior permission Under FCRA</a></li>
+               
+               
+                <li><a  href="fc_qtrfrm_report.aspx">List of FCRA Registered Associations that have filed quarterly returns  </a></li> 
+                       
+          </ul>
+        </li>
+
+        <li><a href="Home/order.aspx">Orders / Circulars Guidelines</a></li>
+        <li><a href="Home/PDF_Doc/fc_faq_16112020.pdf" target ="_blank" >FAQ's</a></li>
+        
+         <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#about">Do's & Don't&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu">
+          <li><a href="Home/PDF_Doc/DOs_25112021.pdf" target="_blank"> Do's </a></li>
+            <li><a href="Home/PDF_Doc/Dont_22122021.pdf" target="_blank"> Don't</a></li>
+          </ul>
+        </li>
+ 	<li><a href="fc_dashboard.aspx">Dashboard </a></li>
+        <li><a href="Home/contact.aspx">Contact Us </a></li>
+      </ul>
+    </div>
+    </div>
+   
+</nav>
+  
+<!------------------------slider------------------------------>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#slider').tinycarousel();
+    });
+    $(document).ready(function () {
+        $('#slider1').tinycarousel();
+    });
+</script>
+<script type="text/javascript">
+    $('.yellow').carousel({
+        interval: 8000,
+        wrap: false
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#incfont').click(function () {
+            curSize = parseInt($('#content').css('font-size')) + 1;
+            if (curSize <= 16)
+                $('#content').css('font-size', curSize);
+        });
+        $('#normalint').click(function () {
+            //curSize = parseInt($('#content').css('font-size'));
+            //if (curSize <= 16 || curSize >= 12)
+            $('#content').css('font-size', 14);
+
+        });
+        $('#decfont').click(function () {
+            curSize = parseInt($('#content').css('font-size')) - 2;
+            if (curSize >= 12)
+                $('#content').css('font-size', curSize);
+        });
+    });
+</script>
+
+    <div style="margin:13%">
+    <center>
+        <form name="Form1" method="post" action="fc_out.aspx?aspxerrorpath=%2ffc3_Notfiledwithadd.aspx" id="Form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="D3jk+ZIzSVl3OHoYP0yrK3+hluwG6y98N0zATMRgdNyO4vIzRy7M2XcYaepd2gFKoq84CPW3tA9DlSuVbGC0lgNeLqFQ4fF5Nq0y6W4OK+ft0+DYXjN3VkPy0RaVp1Va1OKBlDwZMUaeOnpZ239oqICiGoEFnDc7PgSjxPrJHEnsCe/PsNxIAGcBP+5k+UYZqBpW5LsgfKTTWn2e/nncCAUSN/DLzNE0g8p8Mrh+GSYJ3gt7" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3B15100E" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+</div>
+        <span id="Label2" style="color:#000333;font-size:18pt;font-weight:bold;">Your Session has been Expired !<br /></span>
+          <br /> <a href ="fcraonline.htm" target="_self" style="text-decoration:none">Click here for FCRA Online Services</a>  
+        </form>
+    </center>
+    </div>
+    
+<!------------------------------footer------------------------------->
+<footer   >
+  
+  
+ 
+  <div class="footer-bottom"  >
+    <div class="container">
+      <div class="footer-content">
+        
+           
+                   <div class="copyright-content"> Web Site Content Managed by <a target="_blank" title="MHA, External Link that opens in a new window" href="https://www.mha.gov.in"><span>Ministry of Home Affairs, GOI </span></a><p>Designed, Developed and Hosted by <a target="_blank" title="NIC, External Link that opens in a new window" href="http://www.nic.in/"><span>National Informatics Centre ( NIC )</span></a></p></div>
+
+             </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

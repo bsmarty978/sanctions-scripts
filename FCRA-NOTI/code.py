@@ -122,98 +122,91 @@ class Data():
                 outfile.write(passing)
 
     def parsing(self):
-        try:
+        url = "https://fcraonline.nic.in/fc3_Notfiledwithadd.aspx"
+
+        payload = {}
+        headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
+            'Cookie': 'ASP.NET_SessionId=7b7690d4-05db-496f-85b5-0d4f4ca6a782'
+        }
+
+        res = requests.request("GET", url, headers=headers, data=payload)
+        response = HtmlResponse(url="example.com",body=res.content)
+        html_file = open("fcra_noti.html","w")
+        html_file.write(response.body.decode("utf-8"))
+        html_file.close()
+        # year = response.xpath('//select[@id="ddlyear"]//option/@value').extract()
+        # print(year)
+        # print(response.xpath("//div['div_main']").getall())
+
+        exit()
+        year.pop(0)
+        for i in year:
             url = "https://fcraonline.nic.in/fc3_Notfiledwithadd.aspx"
 
-            payload = {}
+            payload = f"__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=3DNeLjcyqmAJ8%2BPtnMlj8EeNRvKnpIfi7vCxxd2g%2Bx%2F1VmefOLUbgeGBJunAD4nOQE%2FtpuIY8nWpLkTwQo%2BzbXR2NbXFgaqZo%2BgdLNVLllL3cnEfXsOwby%2FBYOngx5IQlli5gplpf%2FodKtsmJABigLtn1PC18gsF%2FPCa%2Bh20o5BLoS9Ox2hUP%2FhZKcSi1dUHsXGPrCfDIU%2FBzfDDgY1bDEK9HTGgdwPyGcFpLgQHzEF6SICKjk5JngqaF7iVc0RwZqzKxT1w5RLTl0Z93YfQWRcyt9C3DsOvI%2FS0cxwyunJ5sWUiCotuRN9t3s72Tby9jQ06RPoBDM0XcXWaos1v63%2FJGp7798troM6NdY0QkGFe8KlrBcpf0BVTo1TX%2BKYN6nUFAd%2BUJGgsYEfXz5SK%2B1i0CT24NyDqSysvWcR2VVfJdMs6QWST3MmrCt3ffzmFs7r3n49A5aua5IrNGWZxkKs58lpt8FmOwZFyMNxF7iMajokwOUgrgq8qY9XhYyXhV6uQ%2FQ114GXIjegNFTp%2BguQr3gM435XRN2ilpHBIqWt%2FlmMb49N%2BHROgo7KK6NvxdNRymjQkRqnzeL8qb7yhzcY%2BSdxszYbTKJcJW4t%2BMlYjSCR6SwzGYm%2FNITd2y%2BvTwvK%2BfszIU%2F%2Fnqzwbvs47RO57SyyplSOSqVK0JCSMUveCei%2B7CgOmGAe%2Ba5fGTGV6PclQnnQQ0pNsvnO2M83EBuIlmYI1zYgOThn%2BsFQAtIr3n0xYqIChopd38gxnp1jOJQnu8wroq8EWcxDChemQ%2BrbnJ9kNNVJT0SPoQSxibEvchCkdi5T4Fx7LZh7o8exjiGsQsWRUpfY9AuYCOLzM4%2F057IpY9IrJywaNVez90M34eD4JFF54eAS6CTI%2B2cDaDni%2FkGXgie4GgtifsSAsxZ52Kp%2F4wREvmkIpqsa59skSogwXA07XodTvb6z3SeZbzjznncrxvzbHFRpcJwq07k6YlTbuBOpAa9jNhWhBK1k%2F84YtZGmZ6Z67Cx5kHuE0QgXqsA%3D%3D&__VIEWSTATEGENERATOR=9E08422C&__VIEWSTATEENCRYPTED=&h_hash=&h_hash_retype=&ddlblk={i}&ddlState=0&BtnSubmit=Submit"
             headers = {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
                 'Accept-Language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
+                'Content-Type': 'application/x-www-form-urlencoded',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
                 'Cookie': 'ASP.NET_SessionId=5374f19a-ceb4-4596-92d8-4dbe59b4e301'
             }
 
-            res = requests.request("GET", url, headers=headers, data=payload)
-            response = HtmlResponse(url="example.com",body=res.content)
-            try:
-                year = response.xpath('//*[@name="ddlblk"]//option//@value').extract()
-                year.pop(0)
-                for i in year:
-                    try:
-                        url = "https://fcraonline.nic.in/fc3_Notfiledwithadd.aspx"
-
-                        payload = f"__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=3DNeLjcyqmAJ8%2BPtnMlj8EeNRvKnpIfi7vCxxd2g%2Bx%2F1VmefOLUbgeGBJunAD4nOQE%2FtpuIY8nWpLkTwQo%2BzbXR2NbXFgaqZo%2BgdLNVLllL3cnEfXsOwby%2FBYOngx5IQlli5gplpf%2FodKtsmJABigLtn1PC18gsF%2FPCa%2Bh20o5BLoS9Ox2hUP%2FhZKcSi1dUHsXGPrCfDIU%2FBzfDDgY1bDEK9HTGgdwPyGcFpLgQHzEF6SICKjk5JngqaF7iVc0RwZqzKxT1w5RLTl0Z93YfQWRcyt9C3DsOvI%2FS0cxwyunJ5sWUiCotuRN9t3s72Tby9jQ06RPoBDM0XcXWaos1v63%2FJGp7798troM6NdY0QkGFe8KlrBcpf0BVTo1TX%2BKYN6nUFAd%2BUJGgsYEfXz5SK%2B1i0CT24NyDqSysvWcR2VVfJdMs6QWST3MmrCt3ffzmFs7r3n49A5aua5IrNGWZxkKs58lpt8FmOwZFyMNxF7iMajokwOUgrgq8qY9XhYyXhV6uQ%2FQ114GXIjegNFTp%2BguQr3gM435XRN2ilpHBIqWt%2FlmMb49N%2BHROgo7KK6NvxdNRymjQkRqnzeL8qb7yhzcY%2BSdxszYbTKJcJW4t%2BMlYjSCR6SwzGYm%2FNITd2y%2BvTwvK%2BfszIU%2F%2Fnqzwbvs47RO57SyyplSOSqVK0JCSMUveCei%2B7CgOmGAe%2Ba5fGTGV6PclQnnQQ0pNsvnO2M83EBuIlmYI1zYgOThn%2BsFQAtIr3n0xYqIChopd38gxnp1jOJQnu8wroq8EWcxDChemQ%2BrbnJ9kNNVJT0SPoQSxibEvchCkdi5T4Fx7LZh7o8exjiGsQsWRUpfY9AuYCOLzM4%2F057IpY9IrJywaNVez90M34eD4JFF54eAS6CTI%2B2cDaDni%2FkGXgie4GgtifsSAsxZ52Kp%2F4wREvmkIpqsa59skSogwXA07XodTvb6z3SeZbzjznncrxvzbHFRpcJwq07k6YlTbuBOpAa9jNhWhBK1k%2F84YtZGmZ6Z67Cx5kHuE0QgXqsA%3D%3D&__VIEWSTATEGENERATOR=9E08422C&__VIEWSTATEENCRYPTED=&h_hash=&h_hash_retype=&ddlblk={i}&ddlState=0&BtnSubmit=Submit"
-                        headers = {
-                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                            'Accept-Encoding': 'gzip, deflate, br',
-                            'Accept-Language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6,gu;q=0.5',
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
-                            'Cookie': 'ASP.NET_SessionId=5374f19a-ceb4-4596-92d8-4dbe59b4e301'
-                        }
-
-                        ress = requests.request("POST", url, headers=headers, data=payload)
-                        responsee = HtmlResponse(url="example.com",body=ress.content)
-                        try:
-                            last_updated_string = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-                            block = responsee.xpath('//*[@class="container fixed-height"]//tr')
-                            block.pop(0)
-                            for ii in block:
-                                try:
-                                    name = ii.xpath('./td[3]//text()').extract_first(default="").strip()
-                                except:
-                                    name = ""
-                                try:
-                                    reg_no = ii.xpath('.//td[2]//text()').extract_first(default="").strip()
-                                except:
-                                    reg_no = ""
-                                try:
-                                    address = ii.xpath('.//td[4]//text()').extract_first(default="").strip()
-                                except:
-                                    address = ""
-                                item = {}
-                                item["uid"] = hashlib.sha256(((name + address + "FCRA notified").lower()).encode()).hexdigest()
-                                item['name'] = name
-                                print(name)
-                                item["alias_name"] = []
-                                item['country'] = []
-                                item['country'].append("India")
-                                item['list_type'] = "Entity"
-                                item['last_updated'] = last_updated_string
-                                item['entity_details'] = {}
-                                item['nns_status'] = False
-                                item['address'] = []
-                                add = {}
-                                add['complete_address'] = address + "India"
-                                add['country'] = "India"
-                                item['address'].append(add)
-                                item['documents'] = {}
-                                item['documents']['Registration'] = reg_no
-                                item['comment'] = ""
-                                item['sanction_list'] = {}
-                                item['sanction_list']['sl_authority'] = "Ministry of Home Affairs, India"
-                                item['sanction_list']['sl_url'] = "https://fcraonline.nic.in/fc_deemed_asso_list.aspx"
-                                item['sanction_list']['sl_host_country'] = "India"
-                                item['sanction_list']['sl_type'] = "Sanctions"
-                                item['sanction_list']['sl_source'] = "The Foreign Contribution (Regulation) Act, Prior Permission Sanctioned List, India"
-                                item['sanction_list']['sl_description'] = "List of Registered Associations deemed to have ceased BY The Foreign Contribution (Regulation) Act of Ministry of Home Affairs, India."
-                                item['sanction_list']['watch_list'] = "India Watchlists"
-                                item['list_id'] = "IND_E20004"
-                                self.final_list.append(item)
-                        except Exception as e:
-                            print(e)
-                    except Exception as e:
-                        print(e)
+            ress = requests.request("POST", url, headers=headers, data=payload)
+            responsee = HtmlResponse(url="example.com",body=ress.content)
+            last_updated_string = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            block = responsee.xpath('//*[@class="container fixed-height"]//tr')
+            block.pop(0)
+            for ii in block:
                 try:
-                    with open(f'{self.outputpath}/{self.date}_output_fcraonline_fc3_Notfiledwithadd.json', "w") as outfile:
-                        json.dump(self.final_list, outfile,indent=2)
-                except Exception as e:
-                    print(e)
-            except Exception as e:
-                print(e)
-        except Exception as e:
-            print(e)
+                    name = ii.xpath('./td[3]//text()').extract_first(default="").strip()
+                except:
+                    name = ""
+                try:
+                    reg_no = ii.xpath('.//td[2]//text()').extract_first(default="").strip()
+                except:
+                    reg_no = ""
+                try:
+                    address = ii.xpath('.//td[4]//text()').extract_first(default="").strip()
+                except:
+                    address = ""
+                item = {}
+                item["uid"] = hashlib.sha256(((name + address + "FCRA notified").lower()).encode()).hexdigest()
+                item['name'] = name
+                print(name)
+                item["alias_name"] = []
+                item['country'] = []
+                item['country'].append("India")
+                item['list_type'] = "Entity"
+                item['last_updated'] = last_updated_string
+                item['entity_details'] = {}
+                item['nns_status'] = False
+                item['address'] = []
+                add = {}
+                add['complete_address'] = address + "India"
+                add['country'] = "India"
+                item['address'].append(add)
+                item['documents'] = {}
+                item['documents']['Registration'] = reg_no
+                item['comment'] = ""
+                item['sanction_list'] = {}
+                item['sanction_list']['sl_authority'] = "Ministry of Home Affairs, India"
+                item['sanction_list']['sl_url'] = "https://fcraonline.nic.in/fc_deemed_asso_list.aspx"
+                item['sanction_list']['sl_host_country'] = "India"
+                item['sanction_list']['sl_type'] = "Sanctions"
+                item['sanction_list']['sl_source'] = "The Foreign Contribution (Regulation) Act, Prior Permission Sanctioned List, India"
+                item['sanction_list']['sl_description'] = "List of Registered Associations deemed to have ceased BY The Foreign Contribution (Regulation) Act of Ministry of Home Affairs, India."
+                item['sanction_list']['watch_list'] = "India Watchlists"
+                item['list_id'] = "IND_E20004"
+                self.final_list.append(item)
+
+        with open(f'{self.outputpath}/{self.date}_output_fcraonline_fc3_Notfiledwithadd.json', "w") as outfile:
+            json.dump(self.final_list, outfile,indent=2)
 
 temp = Data()
 temp.parsing()
