@@ -1,3 +1,14 @@
 
 
+
+POST https://www.latlong.net/_spm4.php HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+{
+    "c1": "390019",
+    "action": "gpcm",
+    "cp" : ""
+}
+
+
 curl -X GET "https://apisetu.gov.in/mca/v1/companies/L17110MH1973PLC019786" -H "accept: application/json" -H "X-APISETU-APIKEY: 6KklrKbP7QrbMFj728xOv7G1htqq8e9t" -H "X-APISETU-CLIENTID: com.solyticspartners"
