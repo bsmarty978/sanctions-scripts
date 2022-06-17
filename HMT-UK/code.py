@@ -160,7 +160,8 @@ def process_data():
             "sl_host_country": "United Kingdom",
             "sl_type": "Sanctions",
             "watch_list": "European Watchlists",
-            "sl_source": "HM Treasury List",
+            "list_id" : "UK_S10008",
+            "sl_source": "UK HM Treasury Sanctions List, United Kingdom",
             "sl_description": "HMT sanctions list is a list of entities and individuals subjected to certain financial restrictions as part of the United Kingdom's government's domestic counter-terrorism regime policy. Also, it includes individuals prohibited by the European Union and/or the United Nations."
         }
 
