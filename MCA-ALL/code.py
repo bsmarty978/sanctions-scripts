@@ -33,7 +33,28 @@ failed_names = []
 
 root = "/home/ubuntu/sanctions-scripts/MCA-ALL/"
 c = 0
-for d in ml:
+
+def cin_to_master_data(passcin):
+    url = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do"
+    payload = {
+        "companyName": "",
+        "companyID": passcin,
+        "displayCaptcha": "true",
+        "userEnteredCaptcha": "vering",
+        }
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
+        "authority": "www.mca.gov.in",
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    }
+
+    res = requests.post(url, headers=headers, data=payload)
+    print(res.text)
+
+cin_to_master_data("AAG-121")
+exit()
+
+for d in ["AAG-121"]:
     # if c == 10:
     #     break
     payload = {"companyname": d}
@@ -47,11 +68,14 @@ for d in ml:
     try:
         data = json.loads(res.text)["companyList"]
         main_out_list.extend(data)
+        print(json.dumps(data,indent=2))
     except Exception as e:
         print(f"ERROR FOR : {d}")
         failed_names.append(d)
         print(f"-->{e}")
     # c+=1
+
+exit()
 
 with open(f"{root}mca-all-ds.json", "w",encoding='utf-8') as outfile:
     json.dump(main_out_list, outfile, ensure_ascii=False, indent=4)
