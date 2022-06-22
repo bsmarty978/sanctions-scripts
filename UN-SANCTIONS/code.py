@@ -268,14 +268,15 @@ def fileprocessor():
         out_obj["last_updated"] = last_updated_string
         out_obj["documents"] = docs
         out_obj["comment"] = comment.strip()
-        out_obj["list_id"] = "UN_S10005"
+        # out_obj["list_id"] = "UN_S10005"
         out_obj["sanction_list"] = {
                 "sl_authority": "United Nations Security Council",
                 "sl_url": "https://www.un.org/securitycouncil/content/un-sc-consolidated-list",
                 "watch_list": "Global Watchlists",
                 "sl_host_country": "International",
                 "sl_type": "Sanctions",
-                "sl_source": "United Nations Security Council Consolidated List",
+                "list_id" : "UN_S10005",
+                "sl_source": "United Nations Security Council Consolidated Sanctions List, United Nations",
                 "sl_description" : "The Consolidated List includes all individuals and entities subject to measures imposed by the Security Council."
         }
 
