@@ -263,4 +263,4 @@ def UploadfilestTos3():
 
 process_data()
 CompareDocument()
-# UploadfilestTos3()
+UploadfilestTos3()
