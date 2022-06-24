@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+from cv2 import copyTo
 import pandas as pd
 import requests
 from scrapy.http import HtmlResponse
@@ -20,8 +21,8 @@ today_date  = date.today()
 yesterday = today_date - timedelta(days = 1)
 last_updated_string = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-dag_name = "icici-830"
-root = "/home/ubuntu/sanctions-scripts/ICICI-830/"
+dag_name = "tata-834"
+root = "/home/ubuntu/sanctions-scripts/TATA-834/"
 
 input_filename  = f'{dag_name}-inout.pdf'
 output_filename = f'{dag_name}-output-{today_date}.json'
@@ -40,8 +41,8 @@ lp_path = f"{root}{dag_name}-logfile.csv"
 
 
 def get_hash(n):
-    return hashlib.sha256(((n+"ICICI Lombard General Insurance Co. Ltd. Black Listed Agents List, India" + "IND_E20339").lower()).encode()).hexdigest()
-
+    return hashlib.sha256(((n+"Tata AIG General Insurance Co. Ltd. Black Listed Agents List, India" + "IND_E20343").lower()).encode()).hexdigest()
+  
 def alias_maker(n):
     na = n.split(" ")
     alis = []
@@ -52,15 +53,15 @@ def alias_maker(n):
     return alis
 
 def sourcedownloader():
-    headers = {
+    header = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
         }
 
-    res =  requests.get("https://www.icicilombard.com/docs/default-source/other-documents/suspended_agents.pdf")
-    # resp = HtmlResponse("example.com",body=r.text,encoding='utf-8')
-    # url = "https://ncdex.com"+resp.xpath("//p/u/a/@href").get()
+    r =  requests.get("https://www.tataaig.com/downloads",headers=header)
+    resp = HtmlResponse("example.com",body=r.text,encoding='utf-8')
+    url = resp.xpath("//div[@id='5f10544d267a12524fe35c30']//a[6]/@href").get()
 
-    # res = requests.get(url,headers=headers)
+    res = requests.get(url,headers=header)
 
     try:
         with open(f'{ip_path}/{input_filename}', "wb") as infile:
@@ -82,37 +83,34 @@ def process_data():
     for d in tb:
         for i,r in d.df.iterrows():
             data_dict = {}
-            name = r[1].strip()
-            if name == 'Agent Name':
+            if i == 0:
                 continue
-            additional = r[2].strip()
-            body = additional.split(' ')
-            issue_date = body.pop(0)
-            agent_code = r[0].strip()
-            if body[0] != '-':
-                body = ' '.join(body)
-            else:
-                body = ''
+            name = r[0].strip()
+            if name == 'Producer Name':
+                continue
+            remarks = r[2].strip()
+            pan = r[1].strip()
             data_dict['uid'] = get_hash(name)
             data_dict['name'] = name
             data_dict['alias_name'] = alias_maker(name)
             data_dict['list_type'] = 'Individual'
             data_dict['last_updated'] = last_updated_string
             data_dict['nns_status'] = 'False'
-            data_dict['sanction_details'] = {'issue_date':issue_date, 'agent_code':agent_code,'reason':body}
+            data_dict['sanction_details'] = {}
             data_dict['individual_details'] = {}
             data_dict['country']=['India']
             data_dict['address'] = [{'complete_addrss':'','country':''}]
-            data_dict['comment'] = ''
+            data_dict['comment'] = remarks
+            data_dict['documents'] = {'PAN':[pan]}
             data_dict["sanction_list"]= {
-                "sl_authority": "ICICI Lombard General Insurance Co. Ltd., India",
-                "sl_url": "https://www.icicilombard.com/sitemap",
+                "sl_authority": "Tata AIG General Insurance Co. Ltd., India",
+                "sl_url": "https://www.tataaig.com/s3/Order_of_suspension_or_cancellation_of_appointment_of_the_Insurance_Agents_Mar_21_ea9240417f.pdf",
                 "sl_host_country": "India",
                 "sl_type": "Sanctions",
                 "watch_list": "India Watchlists",
-                "sl_source": "ICICI Lombard General Insurance Co. Ltd. Black Listed Agents List, India",
-                "sl_description": "List of blacklisted agents by ICICI Lombard General Insurance Co. Ltd., India.",
-                "list_id": "IND_E20339"
+                "sl_source": "Tata AIG General Insurance Co. Ltd. Black Listed Agents List, India",
+                "sl_description": "List of blacklisted agents by Tata AIG General Insurance Co. Ltd., India.",
+                "list_id": "IND_E20343"
             }
             out_list.append(data_dict)
 
