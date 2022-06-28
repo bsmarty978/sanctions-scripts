@@ -5,17 +5,17 @@ from elasticsearch import Elasticsearch
             # "covers" : "1",
 data = [
     {
-        "last_updated": "2022-06-15T12:23:05",
+        "last_updated": "2022-06-28T12:23:05",
         "sanction_list": {
-            "sl_authority": "The Securities Commission Malaysia (SC), Malaysia",
-            "sl_url": "https://www.sc.com.my/regulation/enforcement/investor-alerts/sc-investor-alerts/investor-alert-list",
-            "watch_list": "APAC Watchlists",
-            "sl_host_country": "Malaysia",
-            "covers" : "1",
-            "sl_type": "Sanctions",
-            "sl_source": "The Securities Commission Malaysia Investor Alert List, Malaysia",
-            "sl_description": "List of unauthorised websites, investment products, companies and individuals issued by The Securities Commission Malaysia (SC), Malaysia",
-            "list_id": "MYS_E20199"
+        "sl_authority": "Secretariat of the Civil Service (Secretaría de la Función Pública), Mexico",
+        "sl_url": "https://directoriosancionados.funcionpublica.gob.mx/SanFicTec/jsp/Ficha_Tecnica/SancionadosN.htm",
+        "sl_host_country": "Mexico",
+        "covers" : "1",
+        "list_id" : "MEX_S10052",
+        "sl_type": "Sanctions",
+        "watch_list": "South and Central America Watchlists",
+        "sl_source": "Secretariat of the Civil Service (Secretaría de la Función Pública) Sanctions List, Mexico",
+        "sl_description": "Sanctions List issued by Secretariat of the Civil Service (Secretaría de la Función Pública), Mexico."
         }
         }
     ]

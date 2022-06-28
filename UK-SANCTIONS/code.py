@@ -318,14 +318,14 @@ def fileprocessor():
         out_obj["last_updated"] = last_updated_string
         out_obj["nns_status"] = False
         out_obj["comment"] = comment
-        out_obj["list_id"] = "UK_S10008"
         out_obj["sanction_list"] = {
             "sl_authority": "United Kingdom Government",
             "sl_url": "https://www.gov.uk/government/publications/the-uk-sanctions-list",
             "watch_list": "European Watchlistss",
             "sl_host_country": "United Kingdom",
             "sl_type": "Sanctions",
-            "sl_source": "Consolidated Sanctions List - United Kingdom",
+            "list_id" : "UK_S10053",
+            "sl_source": "United Kingdom Consolidated Sanctions List, United Kingdom",
             "sl_description": "The UK government publishes the UK Sanctions List, which provides details of those designated under regulations made under the Sanctions Act.. "          
         }
         out_list.append(out_obj)

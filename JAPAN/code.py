@@ -241,9 +241,10 @@ def fileprocessor():
         base_obj["list_id"] =  "JPN_S10012"
         base_obj["sanction_list"] = {
             "sl_authority": "Minister of Finance, Japan",
-            "sl_url": "https://www.opensanctions.org/datasets/jp_mof_sanctions/",
+            "sl_url": "https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/list.html",
             "sl_host_country": "Japan",
             "watch_list" : "APAC Watchlists",
+            "list_id" : "JPN_S10012",
             "sl_type": "Sanctions",
             "sl_source": "Consolidated Japan Sanctions List",
             "sl_description": "The list of designated people and organizations by Minister of Finance, Japan."
