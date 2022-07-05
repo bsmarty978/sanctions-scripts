@@ -1,3 +1,4 @@
+from ast import Break
 from cv2 import ml_ANN_MLP
 import requests
 import json
@@ -60,8 +61,12 @@ failed_names = []
 
 root = "/home/ubuntu/sanctions-scripts/MCA-ALL/"
 c = 0
+cp = True
 for d in ml:
-
+    # if d=="uy8":
+    #     cp = False
+    # if cp:
+    #     continue
     payload = {"companyname": d}
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
@@ -76,15 +81,17 @@ for d in ml:
         try:
             passdata = deepcopy(data)
             mongo_push(passdata)
-        except:
+        except Exception as e:
             print(f"-->mongo Error")
+            print(f"-->{e}")
     except Exception as e:
         print(f"ERROR FOR : {d}")
         failed_names.append(d)
         print(f"-->{e}")
-    # if c == 10:
-    #     break
-    # c+=1
+    if c == 1:
+        break
+    c+=1
+
 
 with open(f"{root}mca-ds-nohup-{today_date}.json", "w",encoding='utf-8') as outfile:
     json.dump(main_out_list, outfile, ensure_ascii=False, indent=4)
