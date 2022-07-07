@@ -51,14 +51,14 @@ def process_data():
     p = 1
     while True:
         url = f"https://www.ibbi.gov.in/orders/nclt?page={p}"
-        # print(url)
-        # payload = {}
-        # headers = {
-        #     'Cookie': 'PHPSESSID=af56ab0690cba426b0cc6c15027b89ab; TS01b6fa6b=01885b66e8083558d8eaf949ade0cfcf75a46c3a69088d1f4d4449f9cc99a84c036c294521c0b623e42f2fa621ca98fce3e457dadce5be3b1125df83ae024650a0806c8139'
-        # }
+        print(url)
+        payload = {}
+        headers = {
+            'Cookie': 'PHPSESSID=af56ab0690cba426b0cc6c15027b89ab; TS01b6fa6b=01885b66e8083558d8eaf949ade0cfcf75a46c3a69088d1f4d4449f9cc99a84c036c294521c0b623e42f2fa621ca98fce3e457dadce5be3b1125df83ae024650a0806c8139'
+        }
         res = requests.get(url)
         response = HtmlResponse(url="example.com", body=res.content)
-        # print(response)
+        print(response)
 
         divs = response.xpath('//tbody/tr')
         for div in divs:
@@ -71,16 +71,25 @@ def process_data():
                 date = div.xpath('./td[1]/text()').extract_first(default="").strip()
             except:
                 date = ''
-            title = title.replace("In the matter of ","").replace("in the matter of ","").strip()
+            title = title.replace("In the matter of ","").replace("in the matter of ","").replace("In the matter ","").strip()
             if "ltd" in title:
                 ta = title.split("ltd")[0].strip() + " ltd"
             elif "Limited" in title:
                 ta = title.split("Limited")[0].strip() +  " Limited"
+            elif "Ltd." in title:
+                ta = title.split("Ltd.")[0].strip() +  " Ltd"
+            elif "CP" in title:
+                ta = title.split("CP")[0].strip().strip(',').strip()
+            else:
+                continue
+                # ta = title
+                print(title)
+                exit()
             if ta in checklist:
                 continue
             else:
                 checklist.append(ta)
-            print(f"->{p}--{ta}")
+            # print(f"->{p}--{ta}")
             item = {
                 "uid": get_hash(ta),
                 "name": ta,
