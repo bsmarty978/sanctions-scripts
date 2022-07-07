@@ -119,7 +119,7 @@ def process_data():
                 "sl_source": "Star Union Dai-Ichi Life Insurance Co. Ltd. Black Listed Agents List, India",
                 "sl_description": "Star Union Dai-Ichi Life Insurance Co. Ltd. Black Listed Agents List, India",
                 "watch_list": "India Watchlists",
-                "list_id": "IND_E20358"
+                "list_id": "IND_E20359"
                 }
             out_list.append(data_dict)
 
