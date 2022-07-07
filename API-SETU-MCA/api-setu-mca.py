@@ -1,6 +1,3 @@
-from email import header
-from wsgiref import headers
-from pendulum import datetime
 import requests
 import json
 from datetime import datetime,timedelta,date
@@ -21,14 +18,25 @@ headers = {
     'X-APISETU-APIKEY': '6KklrKbP7QrbMFj728xOv7G1htqq8e9t',
     'X-APISETU-CLIENTID': 'com.solyticspartners',
     }
-def Get_CIN_To_MasterData(passcin):
-    # url = f"https://apisetu.gov.in/mca/v1/companies​/{passcin}"
-    print(url)
-    r = requests.get(f'https://apisetu.gov.in/mca/v1/companies/{passcin}',headers= headers)
-    print(r)
-    # print(r.json())
+def Get_MasterData_From_CIN(passcin):
+    try:
+        r = requests.get(f'https://apisetu.gov.in/mca/v1/companies/{passcin}',headers= headers)
+        # print(r)
+        # print(r.json())
+        # print('----')
+        return r.json()
+    except:
+        return {}
 
-def Get_CIN_To_Director(passcin):
-    passcin
+def Get_Director_From_CING(passcin):
+    try:
+        r = requests.get(f'https://apisetu.gov.in/mca/v1/companies/{passcin}/directors',headers= headers)
+        # print(r)
+        # print(r.url)
+        # print(r.json())
+        return r.json()
+    except:
+        return {}
 
-Get_CIN_To_MasterData("U17120MH1990PTC055377")
+Get_MasterData_From_CIN("U17120MH1990PTC055377")
+
