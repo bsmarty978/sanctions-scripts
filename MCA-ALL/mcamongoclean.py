@@ -9,7 +9,7 @@ for i in db.mcacin.find({"$expr": { "$lt": [{ "$strLenCP": '$companyID' }, 9] }}
     #     break
     # c+=1
     cid = i["companyID"]
-    if cid == "AAF-8056":
+    if cid == "AAD-1470":
         cp= False
     if cp:
         continue
