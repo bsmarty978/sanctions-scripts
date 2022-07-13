@@ -92,7 +92,7 @@ def process_data():
                 "sl_url": "https://www.fincen.gov/resources/statutes-and-regulations/311-special-measures",
                 "sl_host_country": "USA",
                 "sl_type": "Sanctions",
-                "sl_source": "USA Patriot Act Section 311 Special Measures List, USA",
+                "sl_source": "USA Patriot Act Special Measures List, USA",
                 "sl_description": "Special Measures for Jurisdictions, Financial Institutions, or International Transactions of Primary Money Laundering Concerns issued by The Financial Crimes Enforcement Network (FinCEN), USA.",
                 "watch_list": "North America Watchlists",
                 "list_id": "USA_S10055"
