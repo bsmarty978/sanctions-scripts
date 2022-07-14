@@ -118,7 +118,7 @@ def process_data():
                 data_dict['comment'] = status
                 data_dict["sanction_list"]= {
                     "sl_authority": "Bajaj Allianz General Insurance Co. Ltd, India",
-                    "sl_url": "https://www.bajajallianz.com/download-documents/agent-details/agent-details.pdf",
+                    "sl_url": "https://www.bajajallianz.com/about-us/general-insurance-agent-details.html",
                     "sl_host_country": "India",
                     "sl_type": "Sanctions",
                     "watch_list": "India Watchlists",
